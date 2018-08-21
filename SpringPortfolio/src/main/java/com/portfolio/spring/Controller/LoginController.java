@@ -15,13 +15,13 @@ public class LoginController {
 	}
 	
 	
-	/*@RequestMapping("/")
-	public String login(Model model) {
+	@RequestMapping("/join")
+	public String joinPage(Model model) {
 		
-		return "security/login";
+		return "joinPage";
 		
-	}*/
-	
+	}
+		
 	
 	
 }

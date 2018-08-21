@@ -10,19 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script>
-	function popupError(str){
-		
-		if(str == "Bad credentials"){
-			alert("아이디 및 비밀번호를 확인해주세요.")	
-		}
-		
-		if(str == "User is disabled"){
-			alert("정지된 아이디입니다. 관리자에게 문의해주세요.")
-		}
-		
-	}
-</script>
+<script type = "text/javascript" charset = "UTF-8" src = "/resources/js/errorCommon.js"></script>
+<script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 	
 	<h2>로그인 페이지</h2>
 	
@@ -39,7 +28,8 @@
 		아이디 : <input type = "text" name = "j_username" id = "j_username" required></br>
 		비밀번호 : <input type = "password" name = "j_password" id = "j_password" required></br></br>
 		<input type = "submit" value = "로그인">
-		<input type = "button" value = "회원가입">
+		<input type = "button" value = "취소" onclick="goMain()">
+		<input type = "button" value = "회원가입 " onclick ="goJoinPage()">
 	</form>
 
 </body>

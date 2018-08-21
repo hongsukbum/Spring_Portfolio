@@ -25,7 +25,6 @@
 	
 	<a href = "/product">상품보기</a></br>
 	
-	
 	<s:authorize ifAnyGranted="ROLE_ADMIN">
 		<a href = "/userinfo">유저정보</a></br>
 	</s:authorize>
