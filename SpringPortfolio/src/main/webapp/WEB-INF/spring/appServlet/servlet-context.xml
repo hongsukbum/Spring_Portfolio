@@ -30,17 +30,9 @@
 			<beans:property name = "password" value = "123123"/>
 	</beans:bean>
 	
-	<!-- <beans:bean name = "template" class = "org.springframework.jdbc.core.JdbcTemplate">
+	<beans:bean name = "template" class = "org.springframework.jdbc.core.JdbcTemplate">
 		<beans:property name = "dataSource" ref = "dataSource"/>
-	</beans:bean> -->
-	
-	<!-- <beans:bean id = "sqlSessionFactory" class = "org.mybatis.spring.SqlSessionFactoryBean">
-		<beans:property name="dataSource" ref = "dataSource"/>
-		<beans:property name="mapperLocations" value = "classpath:com/portfolio/spring/mapper/*.xml"/>
 	</beans:bean>
 	
-	<beans:bean id = "sqlSession" class = "org.mybatis.spring.SqlSessionTemplate">
-		<beans:constructor-arg index = "0" ref = "sqlSessionFactory"/>
-	</beans:bean> -->
 	
 </beans:beans>

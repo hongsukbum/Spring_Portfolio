@@ -19,7 +19,9 @@
 </script>
 	
 	<h2>로그인 페이지</h2>
+	
 	<c:url value = "j_spring_security_check" var = "loginUrl"/>
+	
 	<form action = "${loginUrl}" method = "post">
 		
 		<c:if test = "${param.ng != null}">

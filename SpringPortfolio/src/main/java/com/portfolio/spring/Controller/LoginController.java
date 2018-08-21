@@ -22,6 +22,7 @@ public class LoginController {
 		
 	}
 	
+	
 	@RequestMapping("/test")
 	public String test(Model model) {
 		
