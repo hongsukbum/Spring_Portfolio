@@ -11,9 +11,15 @@
 </head>
 <body>
 <script>
-	function popupError(){
+	function popupError(str){
 		
-		alert("에러");
+		if(str == "Bad credentials"){
+			alert("아이디 및 비밀번호를 확인해주세요.")	
+		}
+		
+		if(str == "User is disabled"){
+			alert("정지된 아이디입니다. 관리자에게 문의해주세요.")
+		}
 		
 	}
 </script>
@@ -25,18 +31,15 @@
 	<form action = "${loginUrl}" method = "post">
 		
 		<c:if test = "${param.ng != null}">
-			Login NG!</br>
-			
 			<c:if test ="${SPRING_SECURITY_LAST_EXCEPTION != NULL}">
-				message : <c:out value = "${SPRING_SECURITY_LAST_EXCEPTION.message}"/></br>
-				<script>popupError();</script>
+				<script>popupError("${SPRING_SECURITY_LAST_EXCEPTION.message}");</script>
 			</c:if>
-			
 		</c:if>
 	
-		ID : <input type = "text" name = "j_username" id = "j_username"></br>
-		PW : <input type = "password" name = "j_password" id = "j_password"></br>
+		아이디 : <input type = "text" name = "j_username" id = "j_username" required></br>
+		비밀번호 : <input type = "password" name = "j_password" id = "j_password" required></br></br>
 		<input type = "submit" value = "로그인">
+		<input type = "button" value = "회원가입">
 	</form>
 
 </body>

@@ -60,11 +60,9 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-<<<<<<< HEAD
+    
     <Connector URIEncoding="EUC-KR" connectionTimeout="20000" port="80" protocol="HTTP/1.1" redirectPort="8443"/>
-=======
-    <Connector connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
->>>>>>> 18d7c8885ab25818b81224196097fa9bf9ab5bd6
+
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -109,11 +107,8 @@
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-<<<<<<< HEAD
+
     <Connector URIEncoding="EUC-KR" port="8009" protocol="AJP/1.3" redirectPort="8443"/>
-=======
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443"/>
->>>>>>> 18d7c8885ab25818b81224196097fa9bf9ab5bd6
 
 
     <!-- An Engine represents the entry point (within Catalina) that processes

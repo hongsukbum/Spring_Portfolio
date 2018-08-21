@@ -15,19 +15,13 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping("/")
+	/*@RequestMapping("/")
 	public String login(Model model) {
 		
 		return "security/login";
 		
-	}
+	}*/
 	
 	
-	@RequestMapping("/test")
-	public String test(Model model) {
-		
-		return "test";
-		
-	}
 	
 }

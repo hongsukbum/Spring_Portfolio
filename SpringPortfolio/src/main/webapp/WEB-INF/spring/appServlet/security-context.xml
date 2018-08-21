@@ -10,7 +10,10 @@
 		<security:form-login login-page = "/login"
 			authentication-failure-url="/login?ng"/>
 		
-		<security:intercept-url pattern="/" access="isAuthenticated()"/>
+		<security:intercept-url pattern="/" access="permitAll"/>
+		
+		<security:intercept-url pattern="/userInfo" access="hasRole('ROLE_ADMIN')"/>
+		
 		<!-- <security:intercept-url pattern="/" access="ROLE_ADMIN"/> -->
 	</security:http>
 	
