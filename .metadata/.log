@@ -1878,3 +1878,9 @@ Caused by: java.lang.IllegalArgumentException: Comparison method violates its ge
 
 !ENTRY org.eclipse.m2e.logback.appender 2 0 2018-08-21 20:26:17.230
 !MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2018-08-21 20:57:22.644
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2018-08-21 20:57:22.679
+!MESSAGE Using platform encoding (MS949 actually) to copy filtered resources, i.e. build is platform dependent!
