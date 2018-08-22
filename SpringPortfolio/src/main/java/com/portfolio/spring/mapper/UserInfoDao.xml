@@ -17,4 +17,9 @@
 		SELECT COUNT(*) FROM USERINFO WHERE UNICK = #{param1}
 	</select>
 	
+	<insert id = "joinUser">
+		INSERT INTO USERINFO(UID, UPW, UNICK, UPHONE, UADDR, UBIRTH, UGENDER) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7})
+	</insert>
+	
+	
 </mapper>

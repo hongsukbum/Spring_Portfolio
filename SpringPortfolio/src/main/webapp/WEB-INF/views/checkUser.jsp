@@ -20,7 +20,8 @@
 		<c:if test = "${not empty checkIdResult}">
 			
 			<input type = "hidden" name = "unick" id = "unick" value ="${param.unick}">
-		
+			
+			
 			<c:if test = "${checkIdResult == 0}">
 				${param.uid} 사용 가능한 아이디입니다.</br>
 				<input type = "hidden" name = "uid" id = "uid" value ="${param.uid}">
@@ -37,7 +38,8 @@
 		<c:if test = "${not empty checkNickResult}">
 			
 			<input type = "hidden" name = "uid" id = "uid" value ="${param.uid}">
-		
+			
+			
 			<c:if test = "${checkNickResult == 0}">
 				${param.unick} 사용 가능한 닉네임입니다.</br>
 				<input type = "hidden" name = "unick" id = "unick" value ="${param.unick}">
@@ -50,6 +52,19 @@
 				${param.unick} 사용 불가능한 닉네임입니다.
 			</c:if>
 		</c:if>	
+	
+		<!-- 회원가입 폼 기본 데이터 -->
+		
+		<input type = "hidden" name = "checkNickPopupReturn" id = "checkNickPopupReturn" value = "${param.checkNickPopupReturn}">
+		<input type = "hidden" name = "checkIdPopupReturn" id = "checkIdPopupReturn" value = "${param.checkIdPopupReturn}">
+		
+		<input type = "hidden" name = "upw" id = "upw" value ="${param.upw}">
+		<input type = "hidden" name = "phone1" id = "phone1" value ="${param.phone1}">
+		<input type = "hidden" name = "phone2" id = "phone2" value ="${param.phone2}">
+		<input type = "hidden" name = "phone3" id = "phone3" value ="${param.phone3}">
+		<input type = "hidden" name = "uaddr" id = "uaddr" value ="${param.uaddr}">
+		<input type = "hidden" name = "ubirth" id = "ubirth" value ="${param.ubirth}">
+		<input type = "hidden" name = "ugender" id = "ugender" value ="${param.ugender}">
 	
 	</form>	
 	

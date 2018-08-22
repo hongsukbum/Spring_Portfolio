@@ -35,12 +35,21 @@ public class LoginController {
 		
 		String uid = req.getParameter("uid");
 		String unick = req.getParameter("unick");
+
+		String checkIdPopupReturn = req.getParameter("checkIdPopupReturn");
+		String checkNickPopupReturn = req.getParameter("checkNickPopupReturn");
 		
 		System.out.println("join check uid :: " + uid);
 		System.out.println("join check unick :: " + unick);
 		
+		System.out.println("join check checkIdPopupReturn :: " + checkIdPopupReturn);
+		System.out.println("join check checkNickPopupReturn :: " + checkNickPopupReturn);
+		
 		req.setAttribute("uid", uid);
 		req.setAttribute("unick", unick);
+		
+		req.setAttribute("checkIdPopupReturn", checkIdPopupReturn);
+		req.setAttribute("checkNickPopupReturn", checkNickPopupReturn);
 		
 		return "joinPage";
 		
@@ -81,6 +90,28 @@ public class LoginController {
 		req.setAttribute("checkNickResult", n);
 		
 		return "checkUser";
+		
+	}
+	
+	
+	@RequestMapping("/joinConfirm")
+	public String joinConfirm(HttpServletRequest req, Model model) {
+		
+		System.out.println("joinConfirm");
+		
+		String uid = req.getParameter("uid");
+		String upw = req.getParameter("upw");
+		String unick = req.getParameter("unick");
+		String uphone = req.getParameter("phone1") + "-" + req.getParameter("phone2") + "-" + req.getParameter("phone3");
+		String uaddr = req.getParameter("uaddr");
+		String ubirth = req.getParameter("ubirth");
+		String ugender = req.getParameter("ugender");
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		dao.joinUser(uid, upw, unick, uphone, uaddr, ubirth, ugender);
+		
+		
+		return "redirect:login";
 		
 	}
 	

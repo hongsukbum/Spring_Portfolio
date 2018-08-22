@@ -10,7 +10,7 @@ public class UserInfoDto{
 	private String uphone;
 	private String uaddr;
 	private String ubirth;
-	private char ugender;
+	private String ugender;
 	private Timestamp ujoinDate;
 	private int uenabled;
 	private int uauthorityidx;
@@ -59,10 +59,10 @@ public class UserInfoDto{
 	public void setUbirth(String ubirth) {
 		this.ubirth = ubirth;
 	}
-	public char getUgender() {
+	public String getUgender() {
 		return ugender;
 	}
-	public void setUgender(char ugender) {
+	public void setUgender(String ugender) {
 		this.ugender = ugender;
 	}
 	public Timestamp getUjoinDate() {
