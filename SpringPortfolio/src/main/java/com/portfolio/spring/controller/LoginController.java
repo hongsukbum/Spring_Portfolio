@@ -3,13 +3,14 @@ package com.portfolio.spring.controller;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.portfolio.spring.dao.UserDao;
 
@@ -21,7 +22,11 @@ public class LoginController {
 	private SqlSession sqlSession;
 	
 	@RequestMapping("/login")
-	public String loginPage(Model model) {
+	public String loginPage(@RequestParam(value="joinUid", defaultValue = "")String joinUid, Model model) {
+		
+		System.out.println("join uid : " + joinUid);
+		
+		model.addAttribute("joinUid", joinUid);
 		
 		return "security/loginPage";
 		
@@ -95,7 +100,9 @@ public class LoginController {
 	
 	
 	@RequestMapping("/joinConfirm")
-	public String joinConfirm(HttpServletRequest req, Model model) {
+	public String joinConfirm(HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+		
+		req.setCharacterEncoding("UTF-8");
 		
 		System.out.println("joinConfirm");
 		
@@ -110,6 +117,7 @@ public class LoginController {
 		UserDao dao = sqlSession.getMapper(UserDao.class);
 		dao.joinUser(uid, upw, unick, uphone, uaddr, ubirth, ugender);
 		
+		redirectAttributes.addAttribute("joinUid", uid);
 		
 		return "redirect:login";
 		

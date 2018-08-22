@@ -13,6 +13,15 @@
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/errorCommon.js"></script>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 	
+	<c:if test = "${not empty joinUid}">
+		<script>
+			history.pushState(null, null, location.href);
+		    window.onpopstate = function () {
+		        history.go(1);
+			};
+		</script>
+	</c:if>
+	
 	<h2 align = "center">로그인 페이지</h2>
 	
 	<c:url value = "j_spring_security_check" var = "loginUrl"/>
@@ -29,13 +38,13 @@
 			<tr>
 				<td>아이디</td>
 				<td>
-					<input type = "text" name = "j_username" id = "j_username" required>
+					<input type = "text" name = "j_username" id = "j_username" placeholder = "아이디를 입력하세요." value ="${joinUid}" required>
 				</td>
 			</tr>
 			<tr>
 				<td>비밀번호</td>
 				<td>
-					<input type = "password" name = "j_password" id = "j_password" required>
+					<input type = "password" name = "j_password" id = "j_password" placeholder = "비밀번호를 입력하세요." required>
 				</td>
 			</tr>
 			<tr>
