@@ -1,4 +1,4 @@
-package com.portfolio.spring.DTO;
+package com.portfolio.spring.dto;
 
 public class Product_Bag_DTO {
 	private String pdb_uid;

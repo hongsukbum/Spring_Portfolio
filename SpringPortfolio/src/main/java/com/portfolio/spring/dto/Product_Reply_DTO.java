@@ -1,4 +1,4 @@
-package com.portfolio.spring.DTO;
+package com.portfolio.spring.dto;
 
 public class Product_Reply_DTO {
 	private int pdr_idx;

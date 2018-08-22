@@ -13,7 +13,7 @@
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/errorCommon.js"></script>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 	
-	<h2>로그인 페이지</h2>
+	<h2 align = "center">로그인 페이지</h2>
 	
 	<c:url value = "j_spring_security_check" var = "loginUrl"/>
 	
@@ -25,11 +25,29 @@
 			</c:if>
 		</c:if>
 	
-		아이디 : <input type = "text" name = "j_username" id = "j_username" required></br>
-		비밀번호 : <input type = "password" name = "j_password" id = "j_password" required></br></br>
-		<input type = "submit" value = "로그인">
-		<input type = "button" value = "취소" onclick="goMain()">
-		<input type = "button" value = "회원가입 " onclick ="goJoinPage()">
+		<table align = "center" border = "1" cellspacing = "0">
+			<tr>
+				<td>아이디</td>
+				<td>
+					<input type = "text" name = "j_username" id = "j_username" required>
+				</td>
+			</tr>
+			<tr>
+				<td>비밀번호</td>
+				<td>
+					<input type = "password" name = "j_password" id = "j_password" required>
+				</td>
+			</tr>
+			<tr>
+				<td colspan = "3" align = "center">
+					<input type = "submit" value = "로그인">
+					<input type = "button" value = "취소" onclick="goMain()">
+					<input type = "button" value = "회원가입 " onclick ="goJoinPage()">
+				</td>
+			</tr>	
+			
+		</table>
+		
 	</form>
 
 </body>

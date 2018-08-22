@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace = "com.portfolio.spring.dao.UserDao">
+	
+	<select id = "listDao"  resultType = "com.portfolio.spring.dto.UserInfoDto">
+		SELECT * FROM USERINFO
+	</select>
+	
+	<select id = "checkUserId" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM USERINFO WHERE UID = #{param1}
+	</select>
+	
+</mapper>

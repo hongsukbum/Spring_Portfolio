@@ -1,4 +1,4 @@
-package com.portfolio.spring.DTO;
+package com.portfolio.spring.dto;
 
 public class Qna_DTO {
 	private int qna_idx;

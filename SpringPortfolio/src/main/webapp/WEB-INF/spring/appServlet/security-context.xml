@@ -21,7 +21,7 @@
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="select uid as userName, upw as password, enabled from userinfo where uid = ? "
+				users-by-username-query="select uid as userName, upw as password, uenabled as enabled from userinfo where uid = ? "
 				authorities-by-username-query="select uid as userName, authority from userinfo join user_authority on userinfo.uauthorityIdx = user_authority.aidx where uid = ?"
 			/>
 		</security:authentication-provider>
