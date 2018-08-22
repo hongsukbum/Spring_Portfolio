@@ -11,15 +11,20 @@
 <body>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/joinCommon.js"></script>
 	<c:set var = "checkIdResult" value = "<%=request.getAttribute(\"checkIdResult\")%>"/>
+	<c:set var = "checkNickResult" value = "<%=request.getAttribute(\"checkNickResult\")%>"/>
 
 	<h2>중복 체크</h2>
 	
 	<form name = "joinForm" id = "joinForm">
 	
 		<c:if test = "${not empty checkIdResult}">
+			
+			<input type = "hidden" name = "unick" id = "unick" value ="${param.unick}">
+		
 			<c:if test = "${checkIdResult == 0}">
 				${param.uid} 사용 가능한 아이디입니다.</br>
-				<input type = "button" value ="사용하기" onclick = "checkUsedId()">
+				<input type = "hidden" name = "uid" id = "uid" value ="${param.uid}">
+				<input type = "button" value ="사용하기" onclick = "usedId()">
 			</c:if>
 			
 			<c:if test = "${checkIdResult != 0}">
@@ -29,15 +34,24 @@
 			</c:if>
 		</c:if>	
 	
+		<c:if test = "${not empty checkNickResult}">
+			
+			<input type = "hidden" name = "uid" id = "uid" value ="${param.uid}">
+		
+			<c:if test = "${checkNickResult == 0}">
+				${param.unick} 사용 가능한 닉네임입니다.</br>
+				<input type = "hidden" name = "unick" id = "unick" value ="${param.unick}">
+				<input type = "button" value ="사용하기" onclick = "usedNick()">
+			</c:if>
+			
+			<c:if test = "${checkNickResult != 0}">
+				<input type = "text" name = "unick" placeholder = "닉네임을 입력해주세요." required>
+				<input type = "button" value = "중복체크" onclick = "checkNick()"></br>
+				${param.unick} 사용 불가능한 닉네임입니다.
+			</c:if>
+		</c:if>	
+	
 	</form>	
-	
-	
-	
-	
-	
-	
-	dd :: ${param.uid}</br>
-	n :: ${checkIdResult}
 	
 </body>
 </html>

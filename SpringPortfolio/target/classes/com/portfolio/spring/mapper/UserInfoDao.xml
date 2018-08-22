@@ -13,4 +13,8 @@
 		SELECT COUNT(*) FROM USERINFO WHERE UID = #{param1}
 	</select>
 	
+	<select id = "checkUserNick" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM USERINFO WHERE UNICK = #{param1}
+	</select>
+	
 </mapper>

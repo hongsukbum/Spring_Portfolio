@@ -33,37 +33,31 @@ public class LoginController {
 		
 		req.setCharacterEncoding("UTF-8");
 		
-		//model.addAttribute("uid", "admin");
-		
-		/*service = new UserInfoService();
-		service.execute(model);*/
-		
-		/*UserDao dao = sqlSession.getMapper(UserDao.class);
-
-		model.addAttribute("list", dao.listDao());*/
-		
 		String uid = req.getParameter("uid");
+		String unick = req.getParameter("unick");
 		
-		System.out.println("check uid :: " + uid);
+		System.out.println("join check uid :: " + uid);
+		System.out.println("join check unick :: " + unick);
+		
+		req.setAttribute("uid", uid);
+		req.setAttribute("unick", unick);
 		
 		return "joinPage";
 		
 	}
 	
 	
-	@RequestMapping("/checkUser")
-	public String checkUser(HttpServletRequest req, Model model) throws UnsupportedEncodingException {
+	@RequestMapping("/checkUserId")
+	public String checkUserId(HttpServletRequest req, Model model) throws UnsupportedEncodingException {
 
 		req.setCharacterEncoding("UTF-8");
 		
 		String uid = req.getParameter("uid");
 		
-		System.out.println("check uid :: " + uid);
-		
 		UserDao dao = sqlSession.getMapper(UserDao.class);
 		int n = dao.checkUserId(uid);
 		
-		System.out.println("check result :: " + n);
+		System.out.println(uid + "checkIdResult 0 사용가능 :: " + n);
 		
 		req.setAttribute("checkIdResult", n);
 		
@@ -71,6 +65,24 @@ public class LoginController {
 		
 	}
 		
+	
+	@RequestMapping("/checkUserNick")
+	public String checkUserNick(HttpServletRequest req, Model model) throws UnsupportedEncodingException {
+
+		req.setCharacterEncoding("UTF-8");
+		
+		String unick = req.getParameter("unick");
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		int n = dao.checkUserNick(unick);
+		
+		System.out.println(unick + "checkNickResult 0 사용가능 :: " + n);
+		
+		req.setAttribute("checkNickResult", n);
+		
+		return "checkUser";
+		
+	}
 	
 	
 }

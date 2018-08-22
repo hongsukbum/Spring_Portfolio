@@ -12,17 +12,25 @@
 
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/joinCommon.js"></script>
+<script = type = "text/javascript" charset = "UTF-8">window.name = "joinPage";</script>
+
 	<h2 align = "center">회원가입</h2>
-	
-	
-	<form action = "" method = "get" id = "joinForm" name = "joinForm">
+
+	<form action = "" method = "post" id = "joinForm" name = "joinForm">
 		<table align = "center" border = "1" cellspacing ="0">
-		
+			
 			<tr>
-				<td>아이디</td>
+				<c:set var = "checkId" value = "${param.uid}"/>
+				<td>아이디 </td>
 				<td>
-					<input type = "text" name = "uid" id = "uid" placeholder = "아이디를 입력하세요." value = "${param.uid}" required >
-					<input type = "button" value = "중복체크" onclick = "checkId()">
+					<c:if test = "${empty checkId}">
+						<input type = "text" name = "uid" id = "uid" placeholder = "아이디를 입력하세요."  value = "${checkId}" required >
+						<input type = "button" value = "중복체크" onclick = "checkId()">
+					</c:if>
+					<c:if test = "${not empty checkId}">
+						<input type = "text" name = "uid" id = "uid" placeholder = "아이디를 입력하세요."  value = "${checkId}" readonly >
+						<input type = "button" value = "중복체크" onclick = "checkId()" disabled>
+					</c:if>
 				</td>
 			</tr>
 			<tr>	
@@ -38,10 +46,17 @@
 				</td>
 			</tr>
 			<tr>
+				<c:set var = "checkNick" value = "${param.unick}"/>
 				<td>닉네임</td>
 				<td>
-					<input type = "text" name = "unick" placeholder = "닉네임을 입력하세요." required>
-					<input type = "button" value = "중복체크">
+					<c:if test = "${empty checkNick}">
+						<input type = "text" name = "unick" id = "unick" placeholder = "닉네임을 입력하세요."  value = "${checkNick}" required >
+						<input type = "button" value = "중복체크" onclick = "checkNick()">
+					</c:if>
+					<c:if test = "${not empty checkNick}">
+						<input type = "text" name = "unick" id = "unick" placeholder = "닉네임을 입력하세요."  value = "${checkNick}" readonly >
+						<input type = "button" value = "중복체크" onclick = "checkNick()" disabled>
+					</c:if>
 				</td>
 			</tr>
 			<tr>
@@ -78,7 +93,7 @@
 			</tr>
 			<tr>
 				<td align = "center" colspan = "2">
-					<input type = "submit" value = "회원가입">
+					<input type = "button" value = "회원가입" onclick = "joinConfirm()">
 				</td>
 			</tr>
 			
