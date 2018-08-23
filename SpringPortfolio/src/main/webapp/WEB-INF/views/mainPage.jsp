@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "s" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,14 +14,15 @@
 	
 	<div align = "right">
 		<s:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
-			<s:authentication property="name"/>님 어서오세요.</br>
+			${sessionScope.unick}님 어서오세요.</br>
+			
+			<a href = "/userinfoPage">회원 정보</a>&nbsp&nbsp
 			<a href = "${pageContext.request.contextPath}/j_spring_security_logout">로그아웃</a>
 		</s:authorize>
 		
 		<s:authorize ifNotGranted="ROLE_USER, ROLE_ADMIN">
 			<a href = "/login">로그인</a>
 		</s:authorize>
-		
 	</div>
 	
 	<a href = "/product">상품보기</a></br>

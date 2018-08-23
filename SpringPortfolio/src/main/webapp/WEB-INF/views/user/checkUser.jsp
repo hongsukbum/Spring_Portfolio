@@ -43,12 +43,12 @@
 			<c:if test = "${checkNickResult == 0}">
 				${param.unick} 사용 가능한 닉네임입니다.</br>
 				<input type = "hidden" name = "unick" id = "unick" value ="${param.unick}">
-				<input type = "button" value ="사용하기" onclick = "usedNick()">
+				<input type = "button" value ="사용하기" onclick = "usedNick(window.name)">
 			</c:if>
 			
 			<c:if test = "${checkNickResult != 0}">
 				<input type = "text" name = "unick" placeholder = "닉네임을 입력해주세요." required>
-				<input type = "button" value = "중복체크" onclick = "checkNick()"></br>
+				<input type = "button" value = "중복체크" onclick = "checkNick(window.name)"></br>
 				${param.unick} 사용 불가능한 닉네임입니다.
 			</c:if>
 		</c:if>	

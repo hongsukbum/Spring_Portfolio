@@ -50,7 +50,7 @@
 			<tr>
 				<td colspan = "3" align = "center">
 					<input type = "submit" value = "로그인">
-					<input type = "button" value = "취소" onclick="goMain()">
+					<input type = "button" value = "취소" onclick="pageMain()">
 					<input type = "button" value = "회원가입 " onclick ="goJoinPage()">
 				</td>
 			</tr>	

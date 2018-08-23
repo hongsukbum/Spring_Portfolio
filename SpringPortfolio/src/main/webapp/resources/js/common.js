@@ -9,6 +9,25 @@ function goJoinPage(){
 }
 
 
+function pageBack(){
+	
+	history.back();
+	
+}
+
+
+function pageMain(){
+	
+	location.href = "/";
+	
+}
+
+
+function pageModify(){
+	location.href = "userinfoPage";
+}
+
+
 //maxlength 체크
 function maxLengthCheck(object){
 	

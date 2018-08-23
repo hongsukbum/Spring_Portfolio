@@ -17,11 +17,21 @@ public class UserInfoDto{
 	private String ubagId;
 	
 	
+	public UserInfoDto() {
+		// TODO Auto-generated constructor stub
+	}
 	
-	
-	
-	
-	
+	public UserInfoDto(String uid, String unick, String uphone, String uaddr, String ubirth, String ugender, Timestamp ujoinDate) {
+			
+		this.uid = uid;
+		this.unick = unick;
+		this.uphone = uphone;
+		this.uaddr = uaddr;
+		this.ubirth = ubirth;
+		this.ugender = ugender;
+		this.ujoinDate = ujoinDate;
+		
+	}
 	
 	public int getUidx() {
 		return uidx;
@@ -90,6 +100,13 @@ public class UserInfoDto{
 		this.ubagId = ubagId;
 	}
 	
+	public String getPhoneCut(int n) {
+		
+		String[] result = uphone.split("-");
+		
+		return result[n];
+		
+	}
 	
 	
 	

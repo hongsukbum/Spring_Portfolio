@@ -8,10 +8,19 @@
 
 	<security:http auto-config="true" use-expressions = "true">
 		<security:form-login login-page = "/login"
+			default-target-url = "/loginok"
 			authentication-failure-url="/login?ng"/>
 		
+		<security:logout logout-success-url = "/logout" invalidate-session = "true"/>
+		
+		<!-- 아무나 다 사용가능. -->
 		<security:intercept-url pattern="/" access="permitAll"/>
 		
+		<!-- 인증한 사람만 가능 - 로그인한사람 -->
+		<security:intercept-url pattern="/userinfoPage" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/userinfoModifyPage" access = "isAuthenticated()"/>
+		
+		<!-- ROLE_ADMIN만 사용가능. -->
 		<security:intercept-url pattern="/userInfo" access="hasRole('ROLE_ADMIN')"/>
 		
 		<!-- <security:intercept-url pattern="/" access="ROLE_ADMIN"/> -->

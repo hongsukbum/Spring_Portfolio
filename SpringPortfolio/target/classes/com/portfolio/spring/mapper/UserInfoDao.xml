@@ -5,8 +5,12 @@
 	
 <mapper namespace = "com.portfolio.spring.dao.UserDao">
 	
-	<select id = "listDao"  resultType = "com.portfolio.spring.dto.UserInfoDto">
-		SELECT * FROM USERINFO
+	<select id = "userInfo"  resultType = "com.portfolio.spring.dto.UserInfoDto">
+		SELECT * FROM USERINFO WHERE UID = #{param1}
+	</select>
+	
+	<select id = "userNick" resultType = "java.lang.String">
+		SELECT UNICK FROM USERINFO WHERE UID = #{param1}
 	</select>
 	
 	<select id = "checkUserId" resultType = "java.lang.Integer">
@@ -21,5 +25,8 @@
 		INSERT INTO USERINFO(UID, UPW, UNICK, UPHONE, UADDR, UBIRTH, UGENDER) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7})
 	</insert>
 	
+	<update id = "modifyUser">
+		UPDATE USERINFO SET UPW = #{param2}, UNICK = #{param3}, UPHONE = #{param4}, UADDR = #{param5}, UBIRTH = #{param6}, UGENDER = #{param7} WHERE UID = #{param1} 
+	</update>
 	
 </mapper>

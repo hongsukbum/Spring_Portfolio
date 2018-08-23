@@ -66,9 +66,10 @@ function usedId(){
 	
 }
 
-
-function checkNick(){
+var popupName;
+function checkNick(strPopupName){
 	
+	popupName = strPopupName;
 	var parentForm = document.joinForm;
 	var str = parentForm.unick.value.trim();
 	var popup;
@@ -79,7 +80,7 @@ function checkNick(){
 		
 		var url = "/checkUserNick";
 		
-		popup = window.open("", "popupView","width=500, height=300, scrollbars=no");
+		popup = window.open("", popupName,"width=500, height=300, scrollbars=no");
 		
 		popup.focus();
 		
@@ -87,7 +88,7 @@ function checkNick(){
 		
 		parentForm.action = url;
 		parentForm.method = "post";
-		parentForm.target="popupView";
+		parentForm.target = popupName;
 		
 		parentForm.submit();
 			
@@ -96,18 +97,23 @@ function checkNick(){
 }
 
 
-function usedNick(){
+function usedNick(sendUrl){
 	
 	var form = document.joinForm;
 	var str = form.unick.value;
-	var url = "/join";
+	var url = sendUrl;
 	
 	form.unick.value = str;
 	form.checkNickPopupReturn.value = true;
 	
 	form.action = url;
 	form.method = "post";
-	form.target = "joinPage";	// 부모창 이름 지정하고 그리로 데이터 전송..
+	
+	if(sendUrl == "/join"){
+		form.target = "joinPage";	// 부모창 이름 지정하고 그리로 데이터 전송..
+	}else if(sendUrl == "/userinfoModifyPage"){
+		form.target = "modifyPage";
+	}
 	
 	form.submit();
 	
@@ -183,7 +189,39 @@ function joinConfirm(){
 }
 
 
-
+function modifyConfirm(prevNick, nickCheck){
+	
+	var form = document.joinForm;
+	
+	var nowNick = form.unick.value.trim();
+	
+	//alert("check :: " + prevNick + " :: " + nowNick + " :: " + nickCheck);
+	
+	if(prevNick != nowNick && nickCheck == ""){
+		
+		alert("닉네임 중복체크를 해주세요.");
+		return;
+		
+	}
+	
+	if(form.upw.value.trim() == "" ){
+		alert("비밀번호를 입력하세요.");
+		return;
+	}
+	
+	if(form.upw.value.trim() != form.upw_check.value.trim()){
+		alert("비밀번호를 확인해주세요.");
+		return;
+	}
+	
+	var url = "/userModifyConfirm";
+	
+	form.action = url;
+	form.method = "post";
+	
+	form.submit();
+	
+}
 
 
 

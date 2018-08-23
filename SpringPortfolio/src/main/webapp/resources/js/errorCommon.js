@@ -2,20 +2,6 @@
  * 
  */
 
-function goBack(){
-	
-	history.back();
-	
-}
-
-
-function goMain(){
-	
-	location.href = "/";
-	
-}
-
-
 function popupError(str){
 	
 	if(str == "Bad credentials"){

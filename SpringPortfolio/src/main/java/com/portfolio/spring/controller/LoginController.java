@@ -1,8 +1,10 @@
 package com.portfolio.spring.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,33 @@ public class LoginController {
 	
 	@Autowired
 	private SqlSession sqlSession;
+	
+	
+	@RequestMapping("/loginok")
+	public String loginok(HttpServletRequest req, Principal principal) {
+		
+		System.out.println("login ok : " + principal.getName());
+		
+		HttpSession session = req.getSession();
+		String uid = principal.getName();
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		session.setAttribute("uid", uid);
+		session.setAttribute("unick", dao.userNick(uid));
+		
+		return "redirect:/";
+		
+	}
+	
+	
+	@RequestMapping("/logout")
+	public String logout() {
+		
+		return "redirect:/";
+		
+	}
+	
 	
 	@RequestMapping("/login")
 	public String loginPage(@RequestParam(value="joinUid", defaultValue = "")String joinUid, Model model) {
@@ -56,7 +85,7 @@ public class LoginController {
 		req.setAttribute("checkIdPopupReturn", checkIdPopupReturn);
 		req.setAttribute("checkNickPopupReturn", checkNickPopupReturn);
 		
-		return "joinPage";
+		return "user/joinPage";
 		
 	}
 	
@@ -75,7 +104,7 @@ public class LoginController {
 		
 		req.setAttribute("checkIdResult", n);
 		
-		return "checkUser";
+		return "user/checkUser";
 		
 	}
 		
@@ -94,7 +123,7 @@ public class LoginController {
 		
 		req.setAttribute("checkNickResult", n);
 		
-		return "checkUser";
+		return "user/checkUser";
 		
 	}
 	
@@ -120,6 +149,101 @@ public class LoginController {
 		redirectAttributes.addAttribute("joinUid", uid);
 		
 		return "redirect:login";
+		
+	}
+	
+	
+	@RequestMapping("/userinfoPage")
+	public String userinfoPage(HttpServletRequest req, Model model, Principal principal) throws UnsupportedEncodingException {
+		
+		req.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = req.getSession();
+		
+		String uid = (String)session.getAttribute("uid");
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		if(uid == null) {
+			uid = principal.getName();
+			
+			session.setAttribute("uid", uid);
+			session.setAttribute("unick", dao.userNick(uid));
+		}
+		
+		System.out.println("user modify uid :: " + uid);
+		
+		model.addAttribute("userInfo", dao.userInfo(uid));
+		
+		return "user/userinfoPage";
+		
+	}
+	
+	
+	@RequestMapping("/userinfoModifyPage")
+	public String userinfoModifyPage(HttpServletRequest req, Model model, Principal principal) throws UnsupportedEncodingException {
+		
+		req.setCharacterEncoding("UTF-8");
+	
+		HttpSession session = req.getSession();
+		
+		String uid = (String) session.getAttribute("uid");
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		if(uid == null) {
+			uid = principal.getName();
+			
+			session.setAttribute("uid", uid);
+			session.setAttribute("unick", dao.userNick(uid));
+		}
+		
+		System.out.println(" modify uid :: " + uid);
+		
+		model.addAttribute("userInfo", dao.userInfo(uid));
+		
+		return "user/userinfoModifyPage";
+		
+	}
+	
+	
+	@RequestMapping("/userModifyConfirm")
+	public String userModifyConfirm(HttpServletRequest req, Model model, Principal principal) throws UnsupportedEncodingException {
+		
+		req.setCharacterEncoding("UTF-8");
+		
+		HttpSession session = req.getSession();
+		
+		String uid = (String) session.getAttribute("uid");
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		if(uid == null) {
+			uid = principal.getName();
+			
+			session.setAttribute("uid", uid);
+			
+		}
+		
+		String upw = req.getParameter("upw");
+		String unick = req.getParameter("unick");
+		String uphone = req.getParameter("phone1") + "-" + req.getParameter("phone2") + "-" + req.getParameter("phone3");
+		String uaddr = req.getParameter("uaddr");
+		String ubirth = req.getParameter("ubirth");
+		String ugender = req.getParameter("ugender");
+		
+		System.out.println("uid : " + uid);
+		System.out.println("upw : " + upw);
+		System.out.println("unick : " + unick);
+		System.out.println("uphone : " + uphone);
+		System.out.println("uaddr : " + uaddr);
+		System.out.println("ubirth : " + ubirth);
+		System.out.println("ugender : " + ugender);
+		
+		dao.modifyUser(uid, upw, unick, uphone, uaddr, ubirth, ugender);
+		
+		session.setAttribute("unick", dao.userNick(uid));
+		
+		return "redirect:/userinfoPage";
 		
 	}
 	

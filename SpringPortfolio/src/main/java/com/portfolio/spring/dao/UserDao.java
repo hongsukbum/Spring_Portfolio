@@ -11,6 +11,9 @@ public interface UserDao {
 	
 	public void joinUser(String uid, String upw, String unick, String uphone, String uaddr, String ubirth, String ugender);
 	
-	public ArrayList<UserInfoDto> listDao();
+	public void modifyUser(String uid, String upw, String unick, String uphone, String uaddr, String ubirth, String ugender);
+	
+	public String userNick(String uid);
+	public UserInfoDto userInfo(String uid);
 	
 }

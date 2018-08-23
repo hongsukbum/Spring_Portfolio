@@ -12,7 +12,7 @@
 
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/joinCommon.js"></script>
-<script = type = "text/javascript" charset = "UTF-8">window.name = "joinPage";</script>
+<script type = "text/javascript" charset = "UTF-8">window.name = "joinPage";</script>
 
 	<h2 align = "center">회원가입</h2>
 
@@ -57,15 +57,15 @@
 				<c:set var = "checkNickPopupReturn" value = "${param.checkNickPopupReturn}"/> 
 				<input type = "hidden" id = "checkNickPopupReturn" name = "checkNickPopupReturn" value = "${checkNickPopupReturn}">
 				
-				<td>닉네임  ${tmpCheckNick}</td>
+				<td>닉네임</td>
 				<td>
 					<c:if test = "${empty checkNickPopupReturn || checkNickPopupReturn == false}">
 						<input type = "text" name = "unick" id = "unick" placeholder = "닉네임을 입력하세요."  value = "${checkNick}" >
-						<input type = "button" value = "중복체크" onclick = "checkNick()">
+						<input type = "button" value = "중복체크" onclick = "checkNick('/join')">
 					</c:if>
 					<c:if test = "${checkNickPopupReturn == true}">
 						<input type = "text" name = "unick" id = "unick" placeholder = "닉네임을 입력하세요."  value = "${checkNick}" readonly >
-						<input type = "button" value = "중복체크" onclick = "checkNick()" disabled>
+						<input type = "button" value = "중복체크" onclick = "checkNick('/join')" disabled>
 					</c:if>
 				</td>
 			</tr>
@@ -120,6 +120,7 @@
 			<tr>
 				<td align = "center" colspan = "2">
 					<input type = "button" value = "회원가입" onclick = "joinConfirm()">
+					<input type = "button" value = "취소" onclick = "pageBack()">
 				</td>
 			</tr>
 			
