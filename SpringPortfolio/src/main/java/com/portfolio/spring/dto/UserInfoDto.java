@@ -6,6 +6,7 @@ public class UserInfoDto{
 	
 	private int uidx;
 	private String uid;
+	private String upw;
 	private String unick;
 	private String uphone;
 	private String uaddr;
@@ -21,9 +22,10 @@ public class UserInfoDto{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public UserInfoDto(String uid, String unick, String uphone, String uaddr, String ubirth, String ugender, Timestamp ujoinDate) {
+	public UserInfoDto(String uid, String upw, String unick, String uphone, String uaddr, String ubirth, String ugender, Timestamp ujoinDate) {
 			
 		this.uid = uid;
+		this.upw = upw;
 		this.unick = unick;
 		this.uphone = uphone;
 		this.uaddr = uaddr;
@@ -33,6 +35,14 @@ public class UserInfoDto{
 		
 	}
 	
+	public String getUpw() {
+		return upw;
+	}
+
+	public void setUpw(String upw) {
+		this.upw = upw;
+	}
+
 	public int getUidx() {
 		return uidx;
 	}

@@ -21,12 +21,12 @@
 		SELECT COUNT(*) FROM USERINFO WHERE UNICK = #{param1}
 	</select>
 	
-	<insert id = "joinUser">
-		INSERT INTO USERINFO(UID, UPW, UNICK, UPHONE, UADDR, UBIRTH, UGENDER) VALUES(#{param1}, #{param2}, #{param3}, #{param4}, #{param5}, #{param6}, #{param7})
+	<insert id = "joinUser" parameterType = "com.portfolio.spring.dto.UserInfoDto">
+		INSERT INTO USERINFO(UID, UPW, UNICK, UPHONE, UADDR, UBIRTH, UGENDER) VALUES(#{uid}, #{upw}, #{unick}, #{uphone}, #{uaddr}, #{ubirth}, #{ugender})
 	</insert>
 	
-	<update id = "modifyUser">
-		UPDATE USERINFO SET UPW = #{param2}, UNICK = #{param3}, UPHONE = #{param4}, UADDR = #{param5}, UBIRTH = #{param6}, UGENDER = #{param7} WHERE UID = #{param1} 
+	<update id = "modifyUser" parameterType = "com.portfolio.spring.dto.UserInfoDto">
+		UPDATE USERINFO SET UPW = #{upw}, UNICK = #{unick}, UPHONE = #{uphone}, UADDR = #{uaddr}, UBIRTH = #{ubirth}, UGENDER = #{ugender} WHERE UID = #{uid} 
 	</update>
 	
 </mapper>

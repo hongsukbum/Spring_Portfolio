@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.portfolio.spring.dao.UserDao;
+import com.portfolio.spring.dto.UserInfoDto;
 
 @Controller
 public class LoginController {
@@ -129,13 +130,25 @@ public class LoginController {
 	
 	
 	@RequestMapping("/joinConfirm")
-	public String joinConfirm(HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+	public String joinConfirm( UserInfoDto userInfoDto, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
 		
 		req.setCharacterEncoding("UTF-8");
 		
 		System.out.println("joinConfirm");
 		
-		String uid = req.getParameter("uid");
+		System.out.println(" dto uid : " + userInfoDto.getUid());
+		System.out.println(" dto unick : " + userInfoDto.getUnick());
+		
+		String uphone = req.getParameter("phone1") + "-" + req.getParameter("phone2") + "-" + req.getParameter("phone3");
+		
+		userInfoDto.setUphone(uphone);
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		dao.joinUser(userInfoDto);
+		
+		redirectAttributes.addAttribute("joinUid", userInfoDto.getUid());
+		
+		/*String uid = req.getParameter("uid");
 		String upw = req.getParameter("upw");
 		String unick = req.getParameter("unick");
 		String uphone = req.getParameter("phone1") + "-" + req.getParameter("phone2") + "-" + req.getParameter("phone3");
@@ -146,7 +159,7 @@ public class LoginController {
 		UserDao dao = sqlSession.getMapper(UserDao.class);
 		dao.joinUser(uid, upw, unick, uphone, uaddr, ubirth, ugender);
 		
-		redirectAttributes.addAttribute("joinUid", uid);
+		redirectAttributes.addAttribute("joinUid", uid);*/
 		
 		return "redirect:login";
 		
@@ -207,7 +220,7 @@ public class LoginController {
 	
 	
 	@RequestMapping("/userModifyConfirm")
-	public String userModifyConfirm(HttpServletRequest req, Model model, Principal principal) throws UnsupportedEncodingException {
+	public String userModifyConfirm(UserInfoDto userInfoDto, HttpServletRequest req, Model model, Principal principal) throws UnsupportedEncodingException {
 		
 		req.setCharacterEncoding("UTF-8");
 		
@@ -224,22 +237,29 @@ public class LoginController {
 			
 		}
 		
-		String upw = req.getParameter("upw");
+		/*String upw = req.getParameter("upw");
 		String unick = req.getParameter("unick");
 		String uphone = req.getParameter("phone1") + "-" + req.getParameter("phone2") + "-" + req.getParameter("phone3");
 		String uaddr = req.getParameter("uaddr");
 		String ubirth = req.getParameter("ubirth");
-		String ugender = req.getParameter("ugender");
+		String ugender = req.getParameter("ugender");*/
+
+		String uphone = req.getParameter("phone1") + "-" + req.getParameter("phone2") + "-" + req.getParameter("phone3");
 		
-		System.out.println("uid : " + uid);
-		System.out.println("upw : " + upw);
-		System.out.println("unick : " + unick);
-		System.out.println("uphone : " + uphone);
-		System.out.println("uaddr : " + uaddr);
-		System.out.println("ubirth : " + ubirth);
-		System.out.println("ugender : " + ugender);
+		userInfoDto.setUphone(uphone);
+		userInfoDto.setUid(uid);
 		
-		dao.modifyUser(uid, upw, unick, uphone, uaddr, ubirth, ugender);
+		System.out.println("uid : " + userInfoDto.getUid());
+		System.out.println("upw : " + userInfoDto.getUpw());
+		System.out.println("unick : " + userInfoDto.getUnick());
+		System.out.println("uphone : " + userInfoDto.getUphone());
+		System.out.println("uaddr : " + userInfoDto.getUaddr());
+		System.out.println("ubirth : " + userInfoDto.getUbirth());
+		System.out.println("ugender : " + userInfoDto.getUgender());
+		
+		dao.modifyUser(userInfoDto);
+		
+		//dao.modifyUser(uid, upw, unick, uphone, uaddr, ubirth, ugender);
 		
 		session.setAttribute("unick", dao.userNick(uid));
 		
