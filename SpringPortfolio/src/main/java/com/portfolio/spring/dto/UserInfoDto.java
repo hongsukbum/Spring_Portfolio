@@ -14,7 +14,7 @@ public class UserInfoDto{
 	private String ugender;
 	private Timestamp ujoinDate;
 	private int uenabled;
-	private int uauthorityidx;
+	private int uauthorityIdx;
 	private String ubagId;
 	
 	
@@ -98,10 +98,10 @@ public class UserInfoDto{
 		this.uenabled = uenabled;
 	}
 	public int getUauthorityidx() {
-		return uauthorityidx;
+		return uauthorityIdx;
 	}
-	public void setUauthorityidx(int uauthorityidx) {
-		this.uauthorityidx = uauthorityidx;
+	public void setUauthorityidx(int uauthorityIdx) {
+		this.uauthorityIdx = uauthorityIdx;
 	}
 	public String getUbagId() {
 		return ubagId;

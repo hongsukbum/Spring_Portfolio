@@ -29,4 +29,8 @@
 		UPDATE USERINFO SET UPW = #{upw}, UNICK = #{unick}, UPHONE = #{uphone}, UADDR = #{uaddr}, UBIRTH = #{ubirth}, UGENDER = #{ugender} WHERE UID = #{uid} 
 	</update>
 	
+	<insert id = "accountAdmin" parameterType = "com.portfolio.spring.dto.UserInfoDto">
+		INSERT INTO USERINFO(UID, UPW, UNICK, UAUTHORITYIDX) VALUES(#{uid}, #{upw}, #{unick}, #{uauthorityIdx})
+	</insert> 
+	
 </mapper>

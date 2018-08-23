@@ -17,13 +17,18 @@
 		<security:intercept-url pattern="/" access="permitAll"/>
 		
 		<!-- 인증한 사람만 가능 - 로그인한사람 -->
-		<security:intercept-url pattern="/userinfoPage" access = "isAuthenticated()"/>
-		<security:intercept-url pattern="/userinfoModifyPage" access = "isAuthenticated()"/>
+		<!-- <security:intercept-url pattern="/userinfoPage" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/userinfoModifyPage" access = "isAuthenticated()"/> -->
+		
+		<!-- ROLE_USER만 사용가능. -->
+		<security:intercept-url pattern="/userinfoPage" access = "hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/userinfoModifyPage" access = "hasRole('ROLE_USER')"/>
 		
 		<!-- ROLE_ADMIN만 사용가능. -->
-		<security:intercept-url pattern="/userInfo" access="hasRole('ROLE_ADMIN')"/>
-		
-		<!-- <security:intercept-url pattern="/" access="ROLE_ADMIN"/> -->
+		<security:intercept-url pattern="/adminUserInfoList" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminAddAccount" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/adminAccountConfirm" access="hasRole('ROLE_ADMIN')"/>
+
 	</security:http>
 	
 	

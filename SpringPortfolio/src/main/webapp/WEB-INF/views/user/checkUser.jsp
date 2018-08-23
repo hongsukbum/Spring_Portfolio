@@ -25,12 +25,12 @@
 			<c:if test = "${checkIdResult == 0}">
 				${param.uid} 사용 가능한 아이디입니다.</br>
 				<input type = "hidden" name = "uid" id = "uid" value ="${param.uid}">
-				<input type = "button" value ="사용하기" onclick = "usedId()">
+				<input type = "button" value ="사용하기" onclick = "usedId(window.name)">
 			</c:if>
 			
 			<c:if test = "${checkIdResult != 0}">
 				<input type = "text" name = "uid" placeholder = "아이디를 입력해주세요." required>
-				<input type = "button" value = "중복체크" onclick = "checkId()"></br>
+				<input type = "button" value = "중복체크" onclick = "checkId(window.name)"></br>
 				${param.uid} 사용 불가능한 아이디입니다.
 			</c:if>
 		</c:if>	

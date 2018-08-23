@@ -30,11 +30,11 @@
 				<td>
 					<c:if test = "${empty checkIdPopupReturn || checkIdPopupReturn == false}">
 						<input type = "text" name = "uid" id = "uid" placeholder = "아이디를 입력하세요."  value = "${checkId}">
-						<input type = "button" value = "중복체크" onclick = "checkId()">
+						<input type = "button" value = "중복체크" onclick = "checkId('/join')">
 					</c:if>
 					<c:if test = "${checkIdPopupReturn == true}">
 						<input type = "text" name = "uid" id = "uid" placeholder = "아이디를 입력하세요."  value = "${checkId}" readonly >
-						<input type = "button" value = "중복체크" onclick = "checkId()" disabled>
+						<input type = "button" value = "중복체크" onclick = "checkId('/join')" disabled>
 					</c:if>
 				</td>
 			</tr>

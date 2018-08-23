@@ -130,7 +130,7 @@ public class LoginController {
 	
 	
 	@RequestMapping("/joinConfirm")
-	public String joinConfirm( UserInfoDto userInfoDto, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
+	public String joinConfirm(UserInfoDto userInfoDto, HttpServletRequest req, Model model, RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
 		
 		req.setCharacterEncoding("UTF-8");
 		

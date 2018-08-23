@@ -16,7 +16,14 @@
 		<s:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
 			${sessionScope.unick}님 어서오세요.</br>
 			
-			<a href = "/userinfoPage">회원 정보</a>&nbsp&nbsp
+			<s:authorize ifAnyGranted = "ROLE_USER">
+				<a href = "/userinfoPage">회원 정보</a>&nbsp&nbsp
+			</s:authorize>
+			
+			<s:authorize ifAnyGranted = "ROLE_ADMIN">
+				<a href = "/adminAddAccount">관리자 추가</a>&nbsp&nbsp
+			</s:authorize>
+			
 			<a href = "${pageContext.request.contextPath}/j_spring_security_logout">로그아웃</a>
 		</s:authorize>
 		
@@ -28,7 +35,7 @@
 	<a href = "/product">상품보기</a></br>
 	
 	<s:authorize ifAnyGranted="ROLE_ADMIN">
-		<a href = "/userinfo">유저정보</a></br>
+		<a href = "/adminUserInfoList">유저정보</a></br>
 	</s:authorize>
 	
 </body>

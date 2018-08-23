@@ -2,8 +2,11 @@
  * 
  */
 
-function checkId(){
+var popupName;
+
+function checkId(strPopupName){
 	
+	popupName = strPopupName;
 	var parentForm = document.joinForm;
 	var str = parentForm.uid.value.trim();
 	var popup;
@@ -14,23 +17,15 @@ function checkId(){
 		
 		var url = "/checkUserId";
 		
-		popup = window.open("", "popupView","width=500, height=300, scrollbars=no");
+		popup = window.open("", popupName,"width=500, height=300, scrollbars=no");
 		
 		popup.focus();
 		
 		parentForm.uid.value = str;
 		
-		/*parentForm.upw.value = parentForm.upw.value.trim();
-		parentForm.phone1.value = parentForm.phone1.value.trim();
-		parentForm.phone2.value = parentForm.phone2.value.trim();
-		parentForm.phone3.value = parentForm.phone3.value.trim();
-		parentForm.uaddr.value = parentForm.uaddr.value.trim();
-		parentForm.ubirth.value = parentForm.ubirth.value.trim();
-		parentForm.ugender.value = parentForm.ugender.value.trim();*/
-		
 		parentForm.action = url;
 		parentForm.method = "post";
-		parentForm.target="popupView";
+		parentForm.target=popupName;
 		
 		parentForm.submit();
 			
@@ -39,26 +34,25 @@ function checkId(){
 }
 
 
-function usedId(){
+function usedId(sendUrl){
 	
 	var form = document.joinForm;
 	var str = form.uid.value.trim();
-	var url = "/join";
+	var url = sendUrl;
 	
 	form.uid.value = str;
 	form.checkIdPopupReturn.value = true;
 	
-	/*form.upw.value = form.upw.value.trim();
-	form.phone1.value = form.phone1.value.trim();
-	form.phone2.value = form.phone2.value.trim();
-	form.phone3.value = form.phone3.value.trim();
-	form.uaddr.value = form.uaddr.value.trim();
-	form.ubirth.value = form.ubirth.value.trim();
-	form.ugender.value = form.ugender.value.trim();*/
-	
 	form.action = url;
 	form.method = "post";
-	form.target = "joinPage";	// 부모창 이름 지정하고 그리로 데이터 전송..
+	
+	if(sendUrl == "/join"){
+		form.target = "joinPage";	// 부모창 이름 지정하고 그리로 데이터 전송..
+	}else if(sendUrl == "/userinfoModifyPage"){
+		form.target = "modifyPage";
+	}else if(sendUrl == "/adminAddAccount"){
+		form.target = "addAdmin";
+	}
 	
 	form.submit();
 	
@@ -66,7 +60,7 @@ function usedId(){
 	
 }
 
-var popupName;
+
 function checkNick(strPopupName){
 	
 	popupName = strPopupName;
@@ -176,8 +170,6 @@ function joinConfirm(){
 		return;
 	}
 	
-	
-	var form = document.joinForm;
 	var url = "/joinConfirm";
 	
 	form.action = url;
@@ -215,6 +207,45 @@ function modifyConfirm(prevNick, nickCheck){
 	}
 	
 	var url = "/userModifyConfirm";
+	
+	form.action = url;
+	form.method = "post";
+	
+	form.submit();
+	
+}
+
+
+function adminConfirm(){
+	
+	var form = document.joinForm;
+	
+	if(form.uid.value.trim() == ""){
+		alert("아이디를 입력해주세요.");
+		return;
+	}
+	
+	if(form.tmpCheckId.value.trim() == ""){
+		alert("아이디 중복체크를 해주세요.");
+		return;
+	}
+	
+	if(form.upw.value.trim() == ""){
+		alert("비밀번호를 입력하세요.");
+		return;
+	}
+	
+	if(form.upw.value.trim() != form.upw_check.value.trim()){
+		alert("비밀번호를 확인해주세요.");
+		return;
+	}
+	
+	if(form.unick.value.trim() == ""){
+		alert("닉네임을 입력해주세요.");
+		return;
+	}
+	
+	var url = "/adminAccountConfirm";
 	
 	form.action = url;
 	form.method = "post";
