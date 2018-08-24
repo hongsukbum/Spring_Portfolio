@@ -89,7 +89,7 @@
 	<div align = "center">
 		<form id = "searchForm">
 			<input type = "text" name = "search" id = "search">
-			<input type = "button" value = "검색" onclick = "fn_Search()">
+			<input type = "button" value = "검색" onclick = "fn_Search('${pageName}')">
 		</form>
 	</div>
 	     search str :: ${search}

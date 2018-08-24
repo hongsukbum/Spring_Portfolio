@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id = "productList" resultType = "com.portfolio.spring.dto.ProductDto">
-		SELECT * FROM PRODUCT WHERE PD_IDX BETWEEN #{param1} AND #{param2}
+		SELECT * FROM PRODUCT WHERE PD_IDX LIMIT #{param1}, #{param2} <!-- BETWEEN #{param1} AND #{param2} -->
 	</select>
 	
 </mapper>

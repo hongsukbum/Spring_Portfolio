@@ -43,8 +43,8 @@ public class ProductController {
 		
 		paging = new Paging(listCnt, curPage);
 		
-		int startIdx = paging.getStartIndex() + dao.productFirstIdx();
-		int endIdx = startIdx + paging.getPageSize() - 1;
+		int startIdx = paging.getStartIndex() + dao.productFirstIdx() - 1;
+		int endIdx = paging.getPageSize();
 		
 		System.out.println("start : " + startIdx);
 		System.out.println("endIdx : " + endIdx);

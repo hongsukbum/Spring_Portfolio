@@ -3,7 +3,7 @@ package com.portfolio.spring.util;
 public class Paging {
 
 	// 한 페이지당 게시글 수
-	private int pageSize = 3;
+	private int pageSize = 5;
 	
 	// 한 블럭당 페이지 수
 	private int rangeSize = 10;
