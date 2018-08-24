@@ -1,26 +1,40 @@
 package com.portfolio.spring.dto;
 
-public class Product_DTO {
+public class ProductDto {
 	private int pd_idx;
 	private String pd_name;
 	private String pd_title;
 	private String pd_content;
+	private String pd_image_path;
 	private String pd_image;
 	private int    pd_charge;
 	private int    pd_count;
 	private int    pd_pdc_idx;
-	private char   pd_pdcsc_idx;
+	private int   pd_pdcs_idx;
 	
-	public Product_DTO(int pd_idx, String pd_name, String pd_title,  String pd_content, String pd_image, int pd_charge, int pd_count, int pd_pdc_idx, char pd_pdcsc_idx) {
-		this.pd_idx = pd_idx;
+	
+	public ProductDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ProductDto(String pd_name, String pd_title,  String pd_content, String pd_image_path, String pd_image, int pd_charge, int pd_count, int pd_pdc_idx, int pd_pdcs_idx) {
 		this.pd_name = pd_name;
 		this.pd_title = pd_title;
 		this.pd_content = pd_content;
+		this.pd_image_path = pd_image_path;
 		this.pd_image = pd_image;
 		this.pd_charge = pd_charge;
 		this.pd_count = pd_count;
 		this.pd_pdc_idx = pd_pdc_idx;
-		this.pd_pdcsc_idx = pd_pdcsc_idx;
+		this.pd_pdcs_idx = pd_pdcs_idx;
+	}
+
+	public String getPd_image_path() {
+		return pd_image_path;
+	}
+
+	public void setPd_image_path(String pd_image_path) {
+		this.pd_image_path = pd_image_path;
 	}
 
 	public int getPd_idx() {
@@ -87,11 +101,11 @@ public class Product_DTO {
 		this.pd_pdc_idx = pd_pdc_idx;
 	}
 
-	public char getPd_pdcsc_idx() {
-		return pd_pdcsc_idx;
+	public int getPd_pdcs_idx() {
+		return pd_pdcs_idx;
 	}
 
-	public void setPd_pdcsc_idx(char pd_pdcsc_idx) {
-		this.pd_pdcsc_idx = pd_pdcsc_idx;
+	public void setPd_pdcs_idx(int pd_pdcs_idx) {
+		this.pd_pdcs_idx = pd_pdcs_idx;
 	}
 }

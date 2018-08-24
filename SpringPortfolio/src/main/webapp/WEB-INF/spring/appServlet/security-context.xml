@@ -28,7 +28,10 @@
 		<security:intercept-url pattern="/adminUserInfoList" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminAddAccount" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/adminAccountConfirm" access="hasRole('ROLE_ADMIN')"/>
-
+		
+		<security:intercept-url pattern="/product_enrollment" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/product_enrollmentConfirm" access="hasRole('ROLE_ADMIN')"/>
+		
 	</security:http>
 	
 	

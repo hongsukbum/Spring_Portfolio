@@ -36,3 +36,14 @@ function maxLengthCheck(object){
 	}    
 	
 }
+
+
+// 뒤로가기 막음.
+function noneBack(){
+	
+	history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+	};
+	
+}

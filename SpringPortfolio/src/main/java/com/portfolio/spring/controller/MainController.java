@@ -38,12 +38,4 @@ public class MainController {
 		
 	}
 	
-	
-	@RequestMapping("/product")
-	public String product(Model model) {
-		
-		return "product";
-		
-	}
-	
 }
