@@ -37,24 +37,71 @@ public class ProductController {
 		
 		int listCnt = 0;
 		Paging paging = null;
+
+		if(searchStr == null) {
+			
+			listCnt = dao.productTotalCnt();
+			System.out.println("list cnt : " + listCnt);
+			
+			paging = new Paging(listCnt, curPage);
+			
+			int startIdx = paging.getStartIndex();// + dao.productFirstIdx() - 1;
+			int endIdx = paging.getPageSize();
+			
+			System.out.println("start : " + startIdx);
+			System.out.println("endIdx : " + endIdx);
+			
+			model.addAttribute("productList", dao.productList(startIdx, endIdx));
+		}else {
+			
+			listCnt = dao.productSearchTotalCnt(searchStr);
+			System.out.println("list cnt : " + listCnt);
+			
+			paging = new Paging(listCnt, curPage);
+			
+			int startIdx = paging.getStartIndex();// + dao.productSearhcFirstIdx(searchStr) - 1;
+			int endIdx = paging.getPageSize();
+			
+			System.out.println("start : " + startIdx);
+			System.out.println("endIdx : " + endIdx);
+			
+			model.addAttribute("productList", dao.productSearchList(startIdx, endIdx, searchStr));
+		}
 		
-		listCnt = dao.productTotalCnt();
-		System.out.println("list cnt : " + listCnt);
-		
-		paging = new Paging(listCnt, curPage);
-		
-		int startIdx = paging.getStartIndex() + dao.productFirstIdx() - 1;
-		int endIdx = paging.getPageSize();
-		
-		System.out.println("start : " + startIdx);
-		System.out.println("endIdx : " + endIdx);
-		
-		model.addAttribute("productList", dao.productList(startIdx, endIdx));
 		model.addAttribute("pageName", "/product");
 		model.addAttribute("listCnt", listCnt);
 		model.addAttribute("paging", paging);
+		model.addAttribute("search", searchStr);
 		
 		return "product/productList";
+		
+	}
+	
+	
+	@RequestMapping("/productDelete")
+	public String productDelete(HttpServletRequest req) {
+		
+		int pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
+		
+		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+		
+		dao.productDelete(pd_idx);
+		
+		return "redirect:product";
+		
+	}
+	
+	
+	@RequestMapping("/productDetail")
+	public String productDetail(HttpServletRequest req, Model model){
+		
+		int pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
+		
+		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+		
+		model.addAttribute("productDetail", dao.productDetail(pd_idx));
+		
+		return "product/productDetail";
 		
 	}
 	

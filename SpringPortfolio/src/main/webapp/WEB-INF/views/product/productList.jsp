@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "s" %>
     
 <!DOCTYPE html>
 <html>
@@ -12,18 +13,31 @@
 
 <body>
 
+<script type = "text/javascript" charset = "UTF-8" src = "/resources/js/product.js"></script>
 	<!-- 2-2.<img src = "uploadFile/product/검사낚시.jpg"/></br> -->
 	
 	<h2 align = "center">상품 목록</h2>
 	
-	<table border = "1" cellspacing = "0">
+	<table align = "center" border = "1" cellspacing = "0">
 		<tr bgcolor = orange>
 			<td>상품이름</td><td>상품설명</td>
+			<s:authorize ifAnyGranted = "ROLE_ADMIN">
+				<td>상품수정</td>
+				<td>상품삭제</td>
+			</s:authorize>
 		</tr>
 		
 		<c:forEach items = "${productList}" var = "dto">
-			<tr>
+			<tr onclick = "productDetail('${dto.pd_idx}')">
 				<td>${dto.pd_name}</td><td>${dto.pd_title}</td>
+				<s:authorize ifAnyGranted = "ROLE_ADMIN">
+					<td>
+						<input type = "button" value = "상품수정" onclick = "productModify('${dto.pd_idx}')">
+					</td>
+					<td>
+						<input type = "button" value = "상품삭제" onclick ="productDelete('${dto.pd_idx}')">
+					</td>
+				</s:authorize>
 			</tr>
 		</c:forEach>
 		

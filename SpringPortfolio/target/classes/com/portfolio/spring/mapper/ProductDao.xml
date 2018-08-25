@@ -13,12 +13,32 @@
 		SELECT COUNT(*) FROM PRODUCT
 	</select>
 	
+	<select id="productSearchTotalCnt" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%'))
+	</select>
+	
 	<select id="productFirstIdx" resultType = "java.lang.Integer">
 		SELECT PD_IDX FROM PRODUCT LIMIT 1
+	</select>
+	
+	<select id="productSearhcFirstIdx" resultType = "java.lang.Integer">
+		SELECT PD_IDX FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%')) LIMIT 1
 	</select>
 	
 	<select id = "productList" resultType = "com.portfolio.spring.dto.ProductDto">
 		SELECT * FROM PRODUCT WHERE PD_IDX LIMIT #{param1}, #{param2} <!-- BETWEEN #{param1} AND #{param2} -->
 	</select>
+	
+	<select id = "productSearchList" resultType = "com.portfolio.spring.dto.ProductDto">
+		SELECT * FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param3},'%') OR PD_TITLE LIKE CONCAT('%',#{param3},'%')) AND PD_IDX LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id="productDetail" resultType = "com.portfolio.spring.dto.ProductDto">
+		SELECT * FROM PRODUCT WHERE PD_IDX = #{param1} 
+	</select>
+	
+	<delete id="productDelete">
+		DELETE FROM PRODUCT WHERE PD_IDX = #{param1}
+	</delete>
 	
 </mapper>

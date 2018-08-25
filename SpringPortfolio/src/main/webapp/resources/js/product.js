@@ -36,7 +36,7 @@ function productEnrollment(){
 		return;
 	}
 	
-	if(pd_image_tmp[1] != "png" && pd_image_tmp[1] != "jpg"){
+	if(pd_image_tmp[1] != "png" && pd_image_tmp[1] != "jpg" && pd_image_tmp[1] != "PNG"){
 		alert("png 나 jpg 파일을 등록해주세요.");
 		return;
 	}
@@ -58,3 +58,64 @@ function productEnrollment(){
 	form.submit();
 	
 }
+
+var isDelete = false;
+
+function productDelete(pd_idx){
+	
+	isDelete = true;
+	
+	var url = "/productDelete";
+	var form = document.createElement("form");
+	
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "Post");
+	form.setAttribute("action", url);
+	
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "pd_idx");
+	hiddenField.setAttribute("value", pd_idx);
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+	
+}
+
+var isModify = false;
+
+function productModify(pd_idx){
+	
+	ifModify = true;
+	
+	
+}
+
+
+function productDetail(pd_idx){
+
+	if(isDelete == true) return;
+	if(isModify == true) return;
+		
+	var url = "/productDetail";
+	var form = document.createElement("form");
+	
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "Post");
+	form.setAttribute("action", url);
+	
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "pd_idx");
+	hiddenField.setAttribute("value", pd_idx);
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+	
+	
+}
+
