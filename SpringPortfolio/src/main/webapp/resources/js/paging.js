@@ -1,10 +1,9 @@
 /**
  * 
  */
-function fn_paging(num, strSearch, url){
+function fn_paging(num, strSearch, selectCate, url){
 	//// get 방식.
 	//location.href = "/userInfo?curPage=" + num;
-	
 	var form = document.createElement("form");
 	form.setAttribute("charset", "UTF-8");
 	form.setAttribute("method", "Post");
@@ -14,6 +13,7 @@ function fn_paging(num, strSearch, url){
 	hiddenField.setAttribute("type", "hidden");
 	hiddenField.setAttribute("name", "curPage");
 	hiddenField.setAttribute("value", num);
+	form.appendChild(hiddenField);
 	
 	if(strSearch != ""){
 		var hiddenField_search = document.createElement("input");
@@ -24,7 +24,12 @@ function fn_paging(num, strSearch, url){
 		form.appendChild(hiddenField_search);
 	}
 	
-	form.appendChild(hiddenField);
+	var hiddenField_Cate = document.createElement("input");
+	hiddenField_Cate.setAttribute("type", "hidden");
+	hiddenField_Cate.setAttribute("name", "pd_pdc_idx");
+	hiddenField_Cate.setAttribute("value", selectCate);
+	form.appendChild(hiddenField_Cate);
+	
 	document.body.appendChild(form);
 	
 	form.submit();
@@ -32,7 +37,7 @@ function fn_paging(num, strSearch, url){
 }
 
 
-function fn_Search(url){
+function fn_Search(url, selectCate){
 
 	var form = document.getElementById('searchForm');
 	var str = document.getElementById('search').value;
@@ -45,7 +50,25 @@ function fn_Search(url){
 	form.setAttribute("method", "post");
 	form.setAttribute("action", url);
 	
+	var hiddenField_Cate = document.createElement("input");
+	hiddenField_Cate.setAttribute("type", "hidden");
+	hiddenField_Cate.setAttribute("name", "pd_pdc_idx");
+	hiddenField_Cate.setAttribute("value", selectCate);
+	form.appendChild(hiddenField_Cate);
+	
 	form.submit();
 	
 }
+
+
+//엔터키 활성화
+function onPressEnter(url, selectCate){
+
+	if(event.keyCode == 13){
+		fn_Search(url, selectCate);
+	}
+	
+}
+
+
 	

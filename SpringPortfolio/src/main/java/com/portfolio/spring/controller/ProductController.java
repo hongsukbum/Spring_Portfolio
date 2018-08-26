@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.portfolio.spring.dao.ProductCateDao;
 import com.portfolio.spring.dao.ProductDao;
 import com.portfolio.spring.dto.ProductDto;
 import com.portfolio.spring.util.Paging;
@@ -32,15 +33,23 @@ public class ProductController {
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
 		
 		String searchStr = req.getParameter("search");
-		
 		System.out.println("search :: " + searchStr);
+		
+		int cate = 0;
+		String strCate = req.getParameter("pd_pdc_idx");
+		System.out.println("product cate : " + strCate);	// cate가 0 이면 리스트 전부, 
+		if(strCate !=null) cate = Integer.parseInt(strCate);
 		
 		int listCnt = 0;
 		Paging paging = null;
 
 		if(searchStr == null) {
 			
-			listCnt = dao.productTotalCnt();
+			if(cate == 0) {
+				listCnt = dao.productTotalCnt();
+			}else {
+				listCnt = dao.productTotalCateCnt(cate);
+			}
 			System.out.println("list cnt : " + listCnt);
 			
 			paging = new Paging(listCnt, curPage);
@@ -51,10 +60,19 @@ public class ProductController {
 			System.out.println("start : " + startIdx);
 			System.out.println("endIdx : " + endIdx);
 			
-			model.addAttribute("productList", dao.productList(startIdx, endIdx));
+			if(cate == 0) {
+				model.addAttribute("productList", dao.productAllList(startIdx, endIdx));
+			}else {
+				model.addAttribute("productList", dao.productCateList(startIdx, endIdx, cate));
+			}
+			
 		}else {
 			
-			listCnt = dao.productSearchTotalCnt(searchStr);
+			if(cate == 0) {
+				listCnt = dao.productSearchTotalCnt(searchStr);
+			}else {
+				listCnt = dao.productSearchTotalCateCnt(searchStr, cate);
+			}
 			System.out.println("list cnt : " + listCnt);
 			
 			paging = new Paging(listCnt, curPage);
@@ -65,8 +83,18 @@ public class ProductController {
 			System.out.println("start : " + startIdx);
 			System.out.println("endIdx : " + endIdx);
 			
-			model.addAttribute("productList", dao.productSearchList(startIdx, endIdx, searchStr));
+			if(cate == 0) {
+				model.addAttribute("productList", dao.productSearchAllList(startIdx, endIdx, searchStr));
+			}else {
+				model.addAttribute("productList", dao.productSearchCateList(startIdx, endIdx, searchStr, cate));
+			}
 		}
+		
+		
+		// 기본 카테고리
+		ProductCateDao cateDao = sqlSession.getMapper(ProductCateDao.class);		
+		model.addAttribute("product_cate", cateDao.productCateList());
+		model.addAttribute("selectCate", cate);
 		
 		model.addAttribute("pageName", "/product");
 		model.addAttribute("listCnt", listCnt);
@@ -106,28 +134,19 @@ public class ProductController {
 	}
 	
 	
-	@RequestMapping("/product_enrollment")
-	public String product_enrollment() {
+	@RequestMapping("/productModifyConfirm")
+	public String productModifyConfirm(MultipartHttpServletRequest req, MultipartFile mf) {
 		
-		return "product/product_enrollmentPage";
-		
-	}
-	
-	
-	@RequestMapping("/product_enrollmentConfirm")
-	public String product_enrollmentConfirm(MultipartHttpServletRequest req, MultipartFile mf){
-		
-		System.out.println("등록완료?!?!");
+		System.out.println("수정완료? :: " + req.getParameter("pd_idx"));
 		
 		String pd_name = req.getParameter("pd_name");
 		String pd_title = req.getParameter("pd_title");
 		String pd_content = req.getParameter("pd_content");
 		int pd_charge = Integer.parseInt(req.getParameter("pd_charge"));
 		int pd_count = Integer.parseInt(req.getParameter("pd_count"));
-		
+		int pd_pdc_idx = Integer.parseInt(req.getParameter("pd_pdc_idx"));
 		
 		// 파일 업로드
-		
 		String imagePath = "uploadFile/product";
 		
 		mf = req.getFile("pd_image");
@@ -147,7 +166,70 @@ public class ProductController {
 			e.printStackTrace();
 		}
 		
-		ProductDto dto = new ProductDto(pd_name, pd_title, pd_content, imagePath ,fileName, pd_charge, pd_count, 0, 0);
+		ProductDto dto = new ProductDto(pd_name, pd_title, pd_content, imagePath ,fileName, pd_charge, pd_count, pd_pdc_idx, 0);
+		dto.setPd_idx(Integer.parseInt(req.getParameter("pd_idx")));	
+		
+		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+		dao.modifyProduct(dto);
+		
+		return "redirect:product";
+		
+	}
+	
+	
+	@RequestMapping("/product_enrollment")
+	public String product_enrollment(HttpServletRequest req, Model model) {
+		
+		String pd_idx = req.getParameter("pd_idx");
+		
+		ProductCateDao cateDao = sqlSession.getMapper(ProductCateDao.class);		
+		model.addAttribute("product_cate", cateDao.productCateList());
+		
+		if(pd_idx != null) {
+		
+			ProductDao dao = sqlSession.getMapper(ProductDao.class);
+			
+			model.addAttribute("productDetail", dao.productDetail(Integer.parseInt(pd_idx)));
+		}
+			
+		return "product/product_enrollmentPage";
+		
+	}
+	
+	
+	@RequestMapping("/product_enrollmentConfirm")
+	public String product_enrollmentConfirm(MultipartHttpServletRequest req, MultipartFile mf){
+		
+		System.out.println("등록완료?!?!");
+		
+		String pd_name = req.getParameter("pd_name");
+		String pd_title = req.getParameter("pd_title");
+		String pd_content = req.getParameter("pd_content");
+		int pd_charge = Integer.parseInt(req.getParameter("pd_charge"));
+		int pd_count = Integer.parseInt(req.getParameter("pd_count"));
+		int pd_pdc_idx = Integer.parseInt(req.getParameter("pd_pdc_idx"));
+		
+		// 파일 업로드
+		String imagePath = "uploadFile/product";
+		
+		mf = req.getFile("pd_image");
+		String path = req.getRealPath(imagePath);
+		String fileName = mf.getOriginalFilename();
+		
+		System.out.println("path : " + path);
+		System.out.println("fileName : " + fileName);
+		
+		File uploadFile = new File(path + "//" + fileName);
+		
+		try {
+			mf.transferTo(uploadFile);
+		}catch (IllegalStateException e) {
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		ProductDto dto = new ProductDto(pd_name, pd_title, pd_content, imagePath ,fileName, pd_charge, pd_count, pd_pdc_idx, 0);
 
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
 		dao.insertNewProduct(dto);

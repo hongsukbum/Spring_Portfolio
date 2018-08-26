@@ -14,9 +14,21 @@
 <body>
 
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/product.js"></script>
-	<!-- 2-2.<img src = "uploadFile/product/검사낚시.jpg"/></br> -->
 	
-	<h2 align = "center">상품 목록</h2>
+	<h2 align = "center">상품 목록 
+		<select name = "pd_pdc_idx" id = "pd_pdc_idx" onchange = "productSelect('pd_pdc_idx','${pageName}')">
+			<c:forEach items = "${product_cate}" var = "cate">
+				
+				<c:if test = "${ selectCate == cate.pdc_idx }">
+					<option value = "${cate.pdc_idx}" selected="selected">${cate.pdc_name}</option>
+				</c:if>
+				<c:if test = "${ selectCate != cate.pdc_idx }">
+					<option value = "${cate.pdc_idx}">${cate.pdc_name}</option>
+				</c:if>
+				
+			</c:forEach>
+		</select>
+	</h2>
 	
 	<table align = "center" border = "1" cellspacing = "0">
 		<tr bgcolor = orange>
@@ -46,6 +58,7 @@
 <jsp:include page= "../common/pagingBottom.jsp" flush="false">
 	<jsp:param name="paging" value="${paging}"/>
 	<jsp:param name= "pageName" value = "${pageName}"/>
+	<jsp:param name="selectCate" value ="${selectCate}"/>
 </jsp:include>	
 	
 </body>
