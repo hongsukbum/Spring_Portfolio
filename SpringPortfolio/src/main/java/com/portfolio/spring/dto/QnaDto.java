@@ -1,23 +1,26 @@
 package com.portfolio.spring.dto;
 
-public class Qna_DTO {
+public class QnaDto {
 	private int qna_idx;
-	private String qna_uid;
+	private String qna_unick;
 	private int qna_qnac_idx;
 	private int qna_pd_idx;
-	private char qna_state;
+	private int qna_state;
 	private String qna_date;
 	private String qna_title;
 	private String qna_content;
 	
-	public Qna_DTO(int qna_idx, String qna_uid, int qna_qnac_idx, int qna_pd_idx, char qna_state, String qna_date,	String qna_title, String qna_content) 
+	
+	public QnaDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public QnaDto(String qna_unick, int qna_qnac_idx, int qna_pd_idx, int qna_state, String qna_title, String qna_content) 
 	{
-		this.qna_idx = qna_idx;
-		this.qna_uid = qna_uid;
+		this.qna_unick = qna_unick;
 		this.qna_qnac_idx = qna_qnac_idx;
 		this.qna_pd_idx = qna_pd_idx;
 		this.qna_state = qna_state;
-		this.qna_date = qna_date;
 		this.qna_title = qna_title;
 		this.qna_content = qna_content;
 	}
@@ -30,12 +33,13 @@ public class Qna_DTO {
 		this.qna_idx = qna_idx;
 	}
 
-	public String getQna_uid() {
-		return qna_uid;
+
+	public String getQna_unick() {
+		return qna_unick;
 	}
 
-	public void setQna_uid(String qna_uid) {
-		this.qna_uid = qna_uid;
+	public void setQna_unick(String qna_unick) {
+		this.qna_unick = qna_unick;
 	}
 
 	public int getQna_qnac_idx() {
@@ -54,11 +58,11 @@ public class Qna_DTO {
 		this.qna_pd_idx = qna_pd_idx;
 	}
 
-	public char getQna_state() {
+	public int getQna_state() {
 		return qna_state;
 	}
 
-	public void setQna_state(char qna_state) {
+	public void setQna_state(int qna_state) {
 		this.qna_state = qna_state;
 	}
 

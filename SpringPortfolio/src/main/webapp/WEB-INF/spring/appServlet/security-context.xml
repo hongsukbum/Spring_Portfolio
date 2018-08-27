@@ -19,6 +19,9 @@
 		<!-- 인증한 사람만 가능 - 로그인한사람 -->
 		<!-- <security:intercept-url pattern="/userinfoPage" access = "isAuthenticated()"/>
 		<security:intercept-url pattern="/userinfoModifyPage" access = "isAuthenticated()"/> -->
+		<security:intercept-url pattern="/qnalist" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/qnaWrite" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/qnaWriteConfirm" access = "isAuthenticated()"/>
 		
 		<!-- ROLE_USER만 사용가능. -->
 		<security:intercept-url pattern="/userinfoPage" access = "hasRole('ROLE_USER')"/>

@@ -34,14 +34,17 @@
 	
 	<a href = "/product">상품보기</a>
 	
-	<s:authorize ifAnyGranted="ROLE_USER">
-		</br>
+	<s:authorize ifAnyGranted="ROLE_USER, ROLE_ADMIN">
+		<s:authorize ifAnyGranted="ROLE_USER">
+			</br>
+		</s:authorize>
+		<s:authorize ifAnyGranted="ROLE_ADMIN">
+			&nbsp&nbsp<a href = "/product_enrollment">상품등록</a></br>
+			<a href = "/adminUserInfoList">유저정보</a></br>
+		</s:authorize>
+		<a href = "/qnalist">고객센터</a>
 	</s:authorize>
 	
-	<s:authorize ifAnyGranted="ROLE_ADMIN">
-		&nbsp&nbsp<a href = "/product_enrollment">상품등록</a></br>
-		<a href = "/adminUserInfoList">유저정보</a></br>
-	</s:authorize>
 	
 </body>
 </html>
