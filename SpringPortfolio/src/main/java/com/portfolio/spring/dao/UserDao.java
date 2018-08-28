@@ -18,4 +18,8 @@ public interface UserDao {
 	public String userNick(String uid);
 	public UserInfoDto userInfo(String uid);
 	
+	public int selectUserUidx(String uid);
+	public String selectUserBag(String uid);
+	public void updateInputBag(int uidx, String pd_idx);
+	
 }

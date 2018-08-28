@@ -31,8 +31,9 @@ function productSelect(cate, url){
 function productEnrollment(){
 	
 	var form = document.productForm;
-	var url = "/product_enrollmentConfirm"
+	var url = "/product_enrollmentConfirm";
 	
+	var pd_pdc_idx = form.pd_pdc_idx.value;
 	var pd_name = form.pd_name.value;
 	var pd_title = form.pd_title.value;
 	var pd_content = form.pd_content.value;
@@ -41,6 +42,11 @@ function productEnrollment(){
 	var pd_count = form.pd_count.value;
 	
 	var pd_image_tmp = pd_image.split(".");
+	
+	if(pd_pdc_idx == 0){
+		alert("카테고리를 선택하세요.");
+		return;
+	}
 	
 	if(pd_name == ""){
 		alert("상품 이름을 등록하세요.");
@@ -187,8 +193,8 @@ function productModify(pd_idx){
 	hiddenField.setAttribute("type", "hidden");
 	hiddenField.setAttribute("name", "pd_idx");
 	hiddenField.setAttribute("value", pd_idx);
-	
 	form.appendChild(hiddenField);
+	
 	document.body.appendChild(form);
 	
 	form.submit();
@@ -196,12 +202,141 @@ function productModify(pd_idx){
 }
 
 
-function productDetail(pd_idx){
+var isBagDelete = false;
+function productUserBagDelete(index, pd_idx){
+	
+	isBagDelete = true;
+	
+	var url = "/productUserBagDelete";
+	var form = document.createElement("form");
+	
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "Post");
+	form.setAttribute("action", url);
+	
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "pd_idx");
+	hiddenField.setAttribute("value", pd_idx);
+	form.appendChild(hiddenField);
+	
+	var hiddenField2 = document.createElement("input");
+	hiddenField2.setAttribute("type", "hidden");
+	hiddenField2.setAttribute("name", "index");
+	hiddenField2.setAttribute("value", index);
+	form.appendChild(hiddenField2);
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+	
+}
+
+
+function productDetail(pd_idx, isCheck){
 
 	if(isDelete == true) return;
 	if(isModify == true) return;
+	if(isBagDelete == true) return;
 	
 	var url = "/productDetail";
+	var form = document.createElement("form");
+	
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "Post");
+	form.setAttribute("action", url);
+	
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "pd_idx");
+	hiddenField.setAttribute("value", pd_idx);
+	form.appendChild(hiddenField);
+	
+	if(isCheck == true){
+		
+		var hiddenField = document.createElement("input");
+		hiddenField.setAttribute("type", "hidden");
+		hiddenField.setAttribute("name", "isCheck");
+		hiddenField.setAttribute("value", isCheck);
+		form.appendChild(hiddenField);
+		
+	}
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+	
+	
+}
+
+
+function productPurchase(pd_idx, pd_count, isCheck, isBag){
+	
+	var pd_purchase_count = 0;
+	
+	if(isCheck == true){
+		pd_purchase_count = document.getElementById("pd_purchase_count").value; 
+		
+		if(pd_count == 0){
+			alert("구매 불가능한 상품입니다.");
+			return;
+		}
+		
+		if(pd_purchase_count == "" || pd_purchase_count > pd_count || pd_purchase_count <0){
+			alert("구매 수량을 확인해주세요.");
+			return;
+		}
+		
+	}
+	
+	var url;	
+	var form = document.createElement("form");
+	
+	if(isCheck == true){
+		url = "/productPurchaseCheck";
+	}else{
+		url = "/productPurchase";
+	}
+	
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "Post");
+	form.setAttribute("action", url);
+	
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type", "hidden");
+	hiddenField.setAttribute("name", "pd_idx");
+	hiddenField.setAttribute("value", pd_idx);
+	form.appendChild(hiddenField);
+	
+	if(isCheck == false){
+		var hiddenField2 = document.createElement("input");
+		hiddenField2.setAttribute("type", "hidden");
+		hiddenField2.setAttribute("name", "pd_purchase_count");
+		hiddenField2.setAttribute("value", pd_count);
+		form.appendChild(hiddenField2);
+	}else{
+		var hiddenField2 = document.createElement("input");
+		hiddenField2.setAttribute("type", "hidden");
+		hiddenField2.setAttribute("name", "pd_purchase_count");
+		hiddenField2.setAttribute("value", pd_purchase_count);
+		form.appendChild(hiddenField2);
+	}
+	
+	var hiddenField3 = document.createElement("input");
+	hiddenField3.setAttribute("type", "hidden");
+	hiddenField3.setAttribute("name", "isBag");
+	hiddenField3.setAttribute("value", isBag);
+	form.appendChild(hiddenField3);
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+
+function productInputBag(pd_idx){
+	
+	var url = "/productInputBag";
 	var form = document.createElement("form");
 	
 	form.setAttribute("charset", "UTF-8");
@@ -217,7 +352,11 @@ function productDetail(pd_idx){
 	document.body.appendChild(form);
 	
 	form.submit();
-	
-	
 }
+
+
+
+
+
+
 

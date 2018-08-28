@@ -23,8 +23,15 @@
 		<security:intercept-url pattern="/qnaWrite" access = "isAuthenticated()"/>
 		<security:intercept-url pattern="/qnaWriteConfirm" access = "isAuthenticated()"/>
 		
+		<security:intercept-url pattern="/productPurchaseCheck" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/productPurchase" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/productInputBag" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/productBag" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/productUserBagDelete" access = "isAuthenticated()"/>
+		
 		<!-- ROLE_USER만 사용가능. -->
 		<security:intercept-url pattern="/userinfoPage" access = "hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/userinfoModifyPage" access = "hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/userinfoModifyPage" access = "hasRole('ROLE_USER')"/>
 		
 		<!-- ROLE_ADMIN만 사용가능. -->

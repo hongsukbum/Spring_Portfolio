@@ -9,6 +9,7 @@ public class ProductDto {
 	private String pd_image;
 	private int    pd_charge;
 	private int    pd_count;
+	private int pd_purchase_count;
 	private int    pd_pdc_idx;
 	private int   pd_pdcs_idx;
 	
@@ -27,6 +28,17 @@ public class ProductDto {
 		this.pd_count = pd_count;
 		this.pd_pdc_idx = pd_pdc_idx;
 		this.pd_pdcs_idx = pd_pdcs_idx;
+	}
+
+	
+	
+	
+	public int getPd_purchase_count() {
+		return pd_purchase_count;
+	}
+
+	public void setPd_purchase_count(int pd_purchase_count) {
+		this.pd_purchase_count = pd_purchase_count;
 	}
 
 	public String getPd_image_path() {

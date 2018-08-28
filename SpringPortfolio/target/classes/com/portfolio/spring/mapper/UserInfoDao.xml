@@ -33,4 +33,16 @@
 		INSERT INTO USERINFO(UID, UPW, UNICK, UAUTHORITYIDX) VALUES(#{uid}, #{upw}, #{unick}, #{uauthorityIdx})
 	</insert> 
 	
+	<select id="selectUserUidx" resultType = "java.lang.Integer">
+		SELECT UIDX FROM USERINFO WHERE UID = #{param1} 
+	</select>
+	
+	<select id="selectUserBag" resultType = "java.lang.String">
+		SELECT UBAGID FROM USERINFO WHERE UID = #{param1}
+	</select>
+	
+	<update id="updateInputBag">
+		UPDATE USERINFO SET UBAGID = #{param2} WHERE UIDX = #{param1} 
+	</update>
+	
 </mapper>

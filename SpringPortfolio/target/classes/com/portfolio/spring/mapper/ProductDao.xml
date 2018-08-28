@@ -14,51 +14,87 @@
 	</update>
 	
 	<select id="productTotalCnt" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT WHERE PD_COUNT > 0
+	</select>
+	
+	<select id="productTotalCnt_Admin" resultType = "java.lang.Integer">
 		SELECT COUNT(*) FROM PRODUCT
 	</select>
 	
 	<select id="productTotalCateCnt" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT WHERE PD_PDC_IDX = #{param1} AND PD_COUNT > 0
+	</select>
+	
+	<select id="productTotalCateCnt_Admin" resultType = "java.lang.Integer">
 		SELECT COUNT(*) FROM PRODUCT WHERE PD_PDC_IDX = #{param1}
 	</select>
 	
 	<select id="productSearchTotalCnt" resultType = "java.lang.Integer">
-		SELECT COUNT(*) FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%'))
+		SELECT COUNT(*) FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%')) AND PD_COUNT > 0 
+	</select>
+	
+	<select id="productSearchTotalCnt_Admin" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%')) 
 	</select>
 	
 	<select id="productSearchTotalCateCnt" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%')) AND PD_PDC_IDX = #{param2} AND PD_COUNT > 0
+	</select>
+	
+	<select id="productSearchTotalCateCnt_Admin" resultType = "java.lang.Integer">
 		SELECT COUNT(*) FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%')) AND PD_PDC_IDX = #{param2}
 	</select>
 	
-	<select id="productFirstIdx" resultType = "java.lang.Integer">
-		SELECT PD_IDX FROM PRODUCT LIMIT 1
-	</select>
-	
-	<select id="productSearhcFirstIdx" resultType = "java.lang.Integer">
-		SELECT PD_IDX FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param1},'%') OR PD_TITLE LIKE CONCAT('%',#{param1},'%')) LIMIT 1
-	</select>
-	
 	<select id = "productAllList" resultType = "com.portfolio.spring.dto.ProductDto">
+		SELECT * FROM PRODUCT WHERE PD_COUNT > 0 ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id = "productAllList_Admin" resultType = "com.portfolio.spring.dto.ProductDto">
 		SELECT * FROM PRODUCT ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
 	</select>
 	
 	<select id = "productCateList" resultType = "com.portfolio.spring.dto.ProductDto">
+		SELECT * FROM PRODUCT WHERE PD_PDC_IDX = #{param3} AND PD_COUNT > 0 ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id = "productCateList_Admin" resultType = "com.portfolio.spring.dto.ProductDto">
 		SELECT * FROM PRODUCT WHERE PD_PDC_IDX = #{param3} ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
 	</select>
 	
 	<select id = "productSearchAllList" resultType = "com.portfolio.spring.dto.ProductDto">
+		SELECT * FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param3},'%') OR PD_TITLE LIKE CONCAT('%',#{param3},'%')) AND PD_COUNT > 0 ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id = "productSearchAllList_Admin" resultType = "com.portfolio.spring.dto.ProductDto">
 		SELECT * FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param3},'%') OR PD_TITLE LIKE CONCAT('%',#{param3},'%')) ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
 	</select>
 	
 	<select id = "productSearchCateList" resultType = "com.portfolio.spring.dto.ProductDto">
+		SELECT * FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param3},'%') OR PD_TITLE LIKE CONCAT('%',#{param3},'%')) AND PD_PDC_IDX = ${param4} AND PD_COUNT > 0 ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
+	</select>
+	
+	<select id = "productSearchCateList_Admin" resultType = "com.portfolio.spring.dto.ProductDto">
 		SELECT * FROM PRODUCT WHERE (PD_NAME LIKE CONCAT('%',#{param3},'%') OR PD_TITLE LIKE CONCAT('%',#{param3},'%')) AND PD_PDC_IDX = ${param4} ORDER BY PD_IDX DESC LIMIT #{param1}, #{param2}
 	</select>
 	
 	<select id="productDetail" resultType = "com.portfolio.spring.dto.ProductDto">
-		SELECT * FROM PRODUCT WHERE PD_IDX = #{param1} 
+		SELECT * FROM PRODUCT WHERE PD_IDX = #{param1} <!-- AND PD_COUNT > 0 -->
 	</select>
 	
 	<delete id="productDelete">
 		DELETE FROM PRODUCT WHERE PD_IDX = #{param1}
 	</delete>
+	
+	<update id="productPurchase" parameterType="java.lang.Integer">
+		UPDATE PRODUCT SET PD_COUNT = PD_COUNT - #{param2}, PD_PURCHASE_COUNT = PD_PURCHASE_COUNT+#{param2} WHERE PD_IDX = #{param1}
+	</update>
+	
+	<select id = "productPurchaseResultCount" resultType="java.lang.Integer">
+		SELECT PD_COUNT FROM PRODUCT WHERE PD_IDX = #{param1} 
+	</select>
+	
+	<select id="checkProduct" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT WHERE PD_IDX = #{param1}
+	</select>
 	
 </mapper>
