@@ -266,6 +266,19 @@ function productDetail(pd_idx, isCheck, index){
 		hiddenField3.setAttribute("value", index);
 		form.appendChild(hiddenField3);
 		
+	}else if(isCheck == 'purchaseBag'){
+
+		var hiddenField2 = document.createElement("input");
+		hiddenField2.setAttribute("type", "hidden");
+		hiddenField2.setAttribute("name", "isCheck");
+		hiddenField2.setAttribute("value", isCheck);
+		form.appendChild(hiddenField2);
+	
+		var hiddenField3 = document.createElement("input");
+		hiddenField3.setAttribute("type", "hidden");
+		hiddenField3.setAttribute("name", "index");
+		hiddenField3.setAttribute("value", index);
+		form.appendChild(hiddenField3);
 	}
 	
 	document.body.appendChild(form);
@@ -283,7 +296,7 @@ function productPurchase(pd_idx, pd_count, isCheck, isBag, pd_charge, index){
 	if(isCheck == true){
 		pd_purchase_count = document.getElementById("pd_purchase_count").value; 
 		
-		if(isBag != "true" && isBag != ""){
+		if(isBag != "true" && isBag != "" && isBag != "purchaseBag"){
 			pd_purchase_count = document.getElementsByName("pd_purchase_count")[isBag].value;
 		}
 

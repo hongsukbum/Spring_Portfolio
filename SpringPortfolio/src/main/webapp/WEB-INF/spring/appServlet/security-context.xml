@@ -28,6 +28,8 @@
 		<security:intercept-url pattern="/productInputBag" access = "isAuthenticated()"/>
 		<security:intercept-url pattern="/productBag" access = "isAuthenticated()"/>
 		<security:intercept-url pattern="/productUserBagDelete" access = "isAuthenticated()"/>
+		<security:intercept-url pattern="/productPurchaseBag" access = "isAuthenticated()"/>
+		
 		
 		<!-- ROLE_USER만 사용가능. -->
 		<security:intercept-url pattern="/userinfoPage" access = "hasRole('ROLE_USER')"/>
@@ -43,6 +45,7 @@
 		<security:intercept-url pattern="/product_enrollmentConfirm" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/productDelete" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/productModifyConfirm" access="hasRole('ROLE_ADMIN')"/>
+		
 		
 	</security:http>
 	

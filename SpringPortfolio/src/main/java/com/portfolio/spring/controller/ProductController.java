@@ -25,8 +25,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.portfolio.spring.dao.ProductCateDao;
 import com.portfolio.spring.dao.ProductDao;
+import com.portfolio.spring.dao.ProductPurchaseBagDao;
 import com.portfolio.spring.dao.UserDao;
 import com.portfolio.spring.dto.ProductDto;
+import com.portfolio.spring.dto.ProductPurchaseBagDto;
 import com.portfolio.spring.util.Paging;
 
 @Controller
@@ -319,6 +321,9 @@ public class ProductController {
 	@RequestMapping("/productPurchase")
 	public String productPurchase(HttpServletRequest req, Model model) {
 		
+		HttpSession session = req.getSession();
+		String uid = (String) session.getAttribute("uid");
+		
 		int pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
 		int pd_purchase_count = Integer.parseInt(req.getParameter("pd_purchase_count"));
 		
@@ -327,7 +332,10 @@ public class ProductController {
 
 		String index = req.getParameter("index");
 		
-		if(isBag.equals("") == false) {
+		if(isBag.equals("purchaseBag")) {
+			System.out.println("구매내역에서 구매");
+			result = "redirect:productPurchaseBag";
+		}else if(isBag.equals("") == false) {
 			result = "redirect:productBag";
 			model.addAttribute("pd_idx", pd_idx);
 			model.addAttribute("index", index);
@@ -349,8 +357,11 @@ public class ProductController {
 		
 		System.out.println("남은 수량 :: " + n);*/
 		
-		// 장바구니에서 구매를 했으면 장바구니에서 삭제.
-
+		// 구매내역 추가.
+		ProductPurchaseBagDto bagDto = new ProductPurchaseBagDto(uid, pd_idx, pd_purchase_count);
+		
+		ProductPurchaseBagDao bagDao = sqlSession.getMapper(ProductPurchaseBagDao.class);
+		bagDao.purchaseProduct(bagDto);
 		
 		return result;
 		
@@ -540,6 +551,53 @@ public class ProductController {
 		userDao.updateInputBag(uidx, tmpIdx);
 		
 		return "redirect:productBag";
+		
+	}
+	
+	/////////////////////////
+	
+	@RequestMapping("/productPurchaseBag")
+	public String productPurchaseBag(@RequestParam(defaultValue="1") int curPage, HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession();
+		String uid = (String) session.getAttribute("uid");
+		
+		
+		ProductPurchaseBagDao bagDao = sqlSession.getMapper(ProductPurchaseBagDao.class);
+		ArrayList<ProductPurchaseBagDto> purchaseBagList = new ArrayList<ProductPurchaseBagDto>();
+		
+		int listCnt = bagDao.productTotalCnt();
+		Paging paging = new Paging(listCnt, curPage);
+		
+		int startIdx = paging.getStartIndex();
+		int endIdx = paging.getPageSize();
+		
+		purchaseBagList = bagDao.productAllList(uid, startIdx, endIdx);
+		
+		ProductDao dao = sqlSession.getMapper(ProductDao.class);
+		
+		int pd_idx = 0;
+		ProductDto dto = new ProductDto();
+		
+		for(int i =0 ;i<purchaseBagList.size();i++) {
+			pd_idx = purchaseBagList.get(i).getPdb_pdidx();
+			
+			dto = dao.productDetail(pd_idx);
+			
+			purchaseBagList.get(i).setPd_name(dto.getPd_name());
+			purchaseBagList.get(i).setPd_charge(dto.getPd_charge());
+			
+		}
+		
+		System.out.println("listcnt ; "  + listCnt);
+		
+		model.addAttribute("purchaseBag", purchaseBagList);
+		model.addAttribute("pageName", "/productPurchaseBag");
+		model.addAttribute("paging", paging);
+		
+		//model.addAttribute("purchaseBag", purchaseBagList);
+		
+		return "product/productPurchaseBag";
 		
 	}
 	

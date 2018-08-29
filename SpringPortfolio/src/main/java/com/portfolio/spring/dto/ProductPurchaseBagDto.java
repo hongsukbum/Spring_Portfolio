@@ -2,22 +2,47 @@ package com.portfolio.spring.dto;
 
 import java.sql.Timestamp;
 
-public class ProductBagDto {
+public class ProductPurchaseBagDto {
 	
 	private int    pbd_idx;
 	private String pdb_uid;
-	private int    pdb_pdIdx;
+	private int    pdb_pdidx;
 	private Timestamp pdb_date;
 	private int    pdb_count;
 	private int   pdb_state;
 	
-	public ProductBagDto(String pdb_uid, int pdb_pdIdx, int pdb_count, int pdb_state) {
+	private String pd_name;
+	private int pd_charge;
+	
+	
+	public ProductPurchaseBagDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ProductPurchaseBagDto(String pdb_uid, int pdb_pdidx, int pdb_count) {
 		
 		this.pdb_uid = pdb_uid;
-		this.pdb_pdIdx = pdb_pdIdx;
+		this.pdb_pdidx = pdb_pdidx;
 		this.pdb_count = pdb_count;
-		this.pdb_state = pdb_state;
 		
+	}
+	
+	
+
+	public String getPd_name() {
+		return pd_name;
+	}
+
+	public void setPd_name(String pd_name) {
+		this.pd_name = pd_name;
+	}
+
+	public int getPd_charge() {
+		return pd_charge;
+	}
+
+	public void setPd_charge(int pd_charge) {
+		this.pd_charge = pd_charge;
 	}
 
 	public String getPdb_uid() {
@@ -28,12 +53,12 @@ public class ProductBagDto {
 		this.pdb_uid = pdb_uid;
 	}
 
-	public int getPdb_pdIdx() {
-		return pdb_pdIdx;
+	public int getPdb_pdidx() {
+		return pdb_pdidx;
 	}
 
-	public void setPdb_pdIdx(int pdb_pdIdx) {
-		this.pdb_pdIdx = pdb_pdIdx;
+	public void setPdb_pdidx(int pdb_pdidx) {
+		this.pdb_pdidx = pdb_pdidx;
 	}
 
 	public int getPbd_idx() {

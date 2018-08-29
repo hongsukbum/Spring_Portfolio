@@ -39,7 +39,7 @@
 	<div align = "center">
 		<form id = "searchForm" name = "searchForm" onsubmit = "return false;">
 			<input type = "button" value = "홈으로" onclick = "pageMain()">
-			<c:if test = "${pageName ne '/productBag'}">
+			<c:if test = "${pageName ne '/productBag' && pageName ne '/productPurchaseBag'}">
 				<input type = "text" name = "search" id = "search" onkeypress = "onPressEnter('${pageName}', '${selectCate}')">
 				<input type = "button" value = "검색" onclick = "fn_Search('${pageName}', '${selectCate}')">
 			</c:if>

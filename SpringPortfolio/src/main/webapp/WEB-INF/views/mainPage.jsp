@@ -17,6 +17,7 @@
 			${sessionScope.unick}님 어서오세요.</br>
 			
 			<s:authorize ifAnyGranted = "ROLE_USER">
+				<a href = "/productPurchaseBag">구매내역</a>&nbsp&nbsp
 				<a href = "/productBag">장바구니</a>&nbsp&nbsp
 				<a href = "/userinfoPage">회원 정보</a>&nbsp&nbsp
 			</s:authorize>
