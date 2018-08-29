@@ -390,7 +390,36 @@ function productInputBag(pd_idx){
 }
 
 
-
+function purchaseStatusUpdate(pdb_idx){
+	
+	var id = document.getElementById('purchaseStatus');
+	var selectValue = id.options[id.selectedIndex].value;
+	var selectText = id.options[id.selectedIndex].text;
+	alert("value :: " + selectValue);
+	var url = "/purchaseStatusUpdate";
+	
+	var form = document.createElement("form");
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "Post");
+	form.setAttribute("action", url);
+	
+	var field = document.createElement("input");
+	field.setAttribute("type", "hidden");
+	field.setAttribute("name", "purchaseStatus");
+	field.setAttribute("value", selectValue);
+	form.appendChild(field);
+	
+	var field1 = document.createElement("input");
+	field1.setAttribute("type", "hidden");
+	field1.setAttribute("name", "pdb_idx");
+	field1.setAttribute("value", pdb_idx);
+	form.appendChild(field1);
+	
+	document.body.appendChild(form);
+	
+	form.submit();
+	
+}
 
 
 

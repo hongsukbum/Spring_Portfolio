@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class ProductPurchaseBagDto {
 	
-	private int    pbd_idx;
+	private int    pdb_idx;
 	private String pdb_uid;
 	private int    pdb_pdidx;
 	private Timestamp pdb_date;
@@ -13,6 +13,7 @@ public class ProductPurchaseBagDto {
 	
 	private String pd_name;
 	private int pd_charge;
+	private String ps_name;
 	
 	
 	public ProductPurchaseBagDto() {
@@ -28,6 +29,14 @@ public class ProductPurchaseBagDto {
 	}
 	
 	
+
+	public String getPs_name() {
+		return ps_name;
+	}
+
+	public void setPs_name(String ps_name) {
+		this.ps_name = ps_name;
+	}
 
 	public String getPd_name() {
 		return pd_name;
@@ -61,12 +70,12 @@ public class ProductPurchaseBagDto {
 		this.pdb_pdidx = pdb_pdidx;
 	}
 
-	public int getPbd_idx() {
-		return pbd_idx;
+	public int getPdb_idx() {
+		return pdb_idx;
 	}
 
-	public void setPbd_idx(int pbd_idx) {
-		this.pbd_idx = pbd_idx;
+	public void setPdb_idx(int pdb_idx) {
+		this.pdb_idx = pdb_idx;
 	}
 
 	public Timestamp getPdb_date() {

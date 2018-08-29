@@ -23,6 +23,7 @@
 			</s:authorize>
 			
 			<s:authorize ifAnyGranted = "ROLE_ADMIN">
+				<a href = "/productPurchaseBag_Admin">구매내역 확인</a>&nbsp&nbsp
 				<a href = "/adminAddAccount">관리자 추가</a>&nbsp&nbsp
 			</s:authorize>
 			

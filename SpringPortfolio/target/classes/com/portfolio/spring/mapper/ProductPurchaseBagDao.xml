@@ -14,11 +14,23 @@
 	</select>
 
 	<select id="productTotalCnt" resultType = "java.lang.Integer">
+		SELECT COUNT(*) FROM PRODUCT_PURCHASEBAG WHERE PDB_UID = #{param1}
+	</select>
+	
+	<select id="productTotalCnt_Admin" resultType = "java.lang.Integer">
 		SELECT COUNT(*) FROM PRODUCT_PURCHASEBAG
 	</select>
 	
 	<select id = "productAllList" resultType = "com.portfolio.spring.dto.ProductPurchaseBagDto">
 		SELECT * FROM PRODUCT_PURCHASEBAG WHERE PDB_UID = #{param1} ORDER BY PDB_IDX DESC LIMIT #{param2}, #{param3}
 	</select>
+
+	<select id = "productAllList_Admin" resultType = "com.portfolio.spring.dto.ProductPurchaseBagDto">
+		SELECT * FROM PRODUCT_PURCHASEBAG ORDER BY PDB_IDX DESC LIMIT #{param1}, #{param2}
+	</select>
+	
+	<update id="updatePurchaseStatus">
+		UPDATE PRODUCT_PURCHASEBAG SET PDB_STATE = #{param2} WHERE PDB_IDX = #{param1}
+	</update>
 
 </mapper>
