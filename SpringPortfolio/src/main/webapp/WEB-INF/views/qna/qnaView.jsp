@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "s" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,7 @@
 	<table align = "center" border="1" cellspacing = "0">
 		
 		<c:set var = "dto" value="${viewQnaDetail}"></c:set>
+		<!--<c:set var = "reply" value="${viewReply}"></c:set> -->
 		
 		<tr>
 			<td>제목</td>
@@ -22,15 +24,31 @@
 			<td>내용</td>
 			<td>${dto.qna_content}</td>
 		</tr>
+		
+		
+		
+		<c:forEach items="${viewReply}" var="reply">
+			<c:if test="${!empty reply}">
+				<tr>
+					<td>답변</td>
+					<td>${reply}</td>
+				</tr>
+			</c:if>
+		</c:forEach>
 		<tr>
 			<td>
 				<input type = "button" value="목록" onclick="move_qna_list()">
-				<input type = "button" value="수정" onclick="qna_modify('${dto.qna_title}','${dto.qna_content}','${dto.qna_idx}')">
-				<input type = "button" value="삭제" onclick="">
+				
+				<s:authorize ifAnyGranted="ROLE_USER">
+					<input type = "button" value="수정" onclick="qna_modify('${dto.qna_title}','${dto.qna_content}','${dto.qna_idx}')">
+				</s:authorize>
+				<input type = "button" value="삭제" onclick="qna_remove('${dto.qna_idx}')">
+				 
+				<s:authorize ifAnyGranted="ROLE_ADMIN">
+					<input type = "button" value = "답변하기" onclick="admin_replyWrite('${dto.qna_idx}')">
+				</s:authorize>	
 			</td>
-		</tr>
-		
-		
+		</tr>		
 	</table>
 </body>
 </html>

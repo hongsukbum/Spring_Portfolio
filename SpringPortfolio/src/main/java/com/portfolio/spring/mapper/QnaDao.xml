@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="viewQnalist" resultType="com.portfolio.spring.dto.QnaDto">
-		SELECT * FROM QNABOARD ORDER BY QNA_IDX DESC
+		SELECT * FROM QNABOARD WHERE QNA_UNICK = #{param1} ORDER BY QNA_IDX DESC
 	</select>
 	
 	<select id="viewQnaDetail" resultType="com.portfolio.spring.dto.QnaDto">
@@ -20,5 +20,17 @@
 	<update id="updateQna" parameterType="com.portfolio.spring.dto.QnaDto">
 		UPDATE QNABOARD SET QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content} WHERE QNA_IDX = #{qna_idx}
 	</update>
+	
+	<update id="updateState" parameterType="com.portfolio.spring.dto.QnaDto">
+		UPDATE QNABOARD SET QNA_STATE = #{param2} WHERE QNA_IDX = #{param1}
+	</update>
+	
+	<select id="removeQna" parameterType="com.portfolio.spring.dto.QnaDto">
+		DELETE FROM QNABOARD WHERE QNA_IDX = #{param1}
+	</select>
+	
+	<select id="adminViewQnalist" resultType="com.portfolio.spring.dto.QnaDto">
+		SELECT * FROM QNABOARD ORDER BY QNA_IDX DESC
+	</select>
 	
 </mapper>

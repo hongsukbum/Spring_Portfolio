@@ -14,6 +14,14 @@
 	<form action ="" id="qnaWrite" name="qnaWrite" method="post">	
 		<table align ="center" border="1" cellspacing ="0">
 			<tr>
+				<td>분류</td>
+				<td>
+					<select id="qna_cate" name="qna_cate">
+						<option value="product">상품</option>
+						<option value="delevery">배송</option>
+						<option value="other">기타</option>
+					</select>
+		
 				<td>제목</td>
 				<td>
 					<input type="text" name="qna_title" id="qna_title" value = "${qna_title}">
@@ -23,13 +31,12 @@
 			<tr>
 				<td>내용</td>
 				<td>
-					<textarea rows="10" cols="20" name="qna_content" id="qna_content">${qna_content}</textarea>
+					<textarea rows="10" cols="50" name="qna_content" id="qna_content">${qna_content}</textarea>
 				</td>
 			</tr>	
 		</table>
 		<div align = "center">
 			<c:if test ="${not empty qna_title}">
-				
 				<input type ="button" value="수정" onclick="qna_modify_confirm('${qna_idx}')">
 			</c:if>
 			<c:if test ="${empty qna_title}">

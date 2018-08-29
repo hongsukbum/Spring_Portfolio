@@ -31,9 +31,7 @@ function qna_write_confirm(){
 }
 
 function qna_write(){
-	
 	location.href = "/qnaWrite";
-	
 }
 
 function qna_view(qna_idx){
@@ -119,5 +117,78 @@ function qna_modify_confirm(qna_idx){
 	form.appendChild(hiddenField);
 	
 	form.submit();
+}
+
+function qna_remove(qna_idx){
+	var form = document.createElement("form");
 	
+	var url = "/qnaRemove";
+
+	form.setAttribute("charset", "UTF-8");
+	form.setAttribute("method", "post");
+	form.setAttribute("action", url);
+	
+	var hiddenField = document.createElement("input");
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","qna_idx");
+	hiddenField.setAttribute("value",qna_idx);
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+function admin_replyWrite(qna_idx){
+	
+	var form = document.createElement("form");
+	
+	var url = "/admin_replyWrite";
+	
+	form.setAttribute("charset","UTF-8");
+	form.setAttribute("method","post");
+	form.setAttribute("action",url);
+	
+	var hiddenField = document.createElement("input");
+	
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","qna_idx");
+	hiddenField.setAttribute("value",qna_idx);
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+function admin_replyWriteConfirm(qna_idx){
+	
+	//alert("replyWriteConfirm()");
+	
+	//replay form 받아오기
+	var form = document.admin_replyWrite;
+	
+	//action 경로 설정
+	var url = "/admin_replyWriteConfirm";
+	
+	form.action = url;
+	
+	//기본적으로 담긴 내용 확인
+	if(form.ab_content.value.trim()==""){
+		alert("내용을 입력해 주세요.");
+		return;
+	}
+	
+	//form에 담에 보낼 요소 추가
+	var hiddenField = document.createElement("input");
+	
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","qna_idx");
+	hiddenField.setAttribute("value",qna_idx);
+	
+	//요소를 form에 담아주기
+	form.appendChild(hiddenField);
+	
+	//form을 지정된 경로로 전송
+	form.submit();
 }
