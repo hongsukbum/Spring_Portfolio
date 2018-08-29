@@ -41,23 +41,17 @@
 		</tr>
 		
 		<c:forEach items="${viewQnalist}" var="view">
+		
 		<tr align="center" onclick="qna_view('${view.qna_idx}')">
 			<td>${view.qna_idx}</td>
 			
-			<!-- 카테고리 띄우기(나중에 수정해야함)//카테고리별 목록띄우기도 추가해야함 -->
+			
 			<s:authorize ifAnyGranted = "ROLE_ADMIN">
-				<c:if test="${view.qna_qnac_idx == 0 }">
-					<td>카테고리</td>
-				</c:if>
-				<c:if test="${view.qna_qnac_idx == 1 }">
-					<td>상품</td>
-				</c:if>
-				<c:if test="${view.qna_qnac_idx == 2 }">
-					<td>배송</td>
-				</c:if>
-				<c:if test="${view.qna_qnac_idx == 3 }">
-					<td>기타</td>
-				</c:if>
+				<c:forEach items="${qna_qnac}" var="qna">
+					<c:if test="${qna.qnac_idx == view.qna_qnac_idx}">
+						<td>${qna.qnac_name}</td>
+					</c:if>
+				</c:forEach>
 			</s:authorize>	
 			
 			<td>${view.qna_title}</td>

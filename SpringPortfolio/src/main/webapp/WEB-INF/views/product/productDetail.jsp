@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://www.springframework.org/security/tags" prefix = "s" %> <%-- 석범추가 --%>
     
 <!DOCTYPE html>
 <html>
@@ -69,6 +70,30 @@
 		</tr>
 		
 	</table>
+	
+	<%-- 석범 추가 --%>
+	<s:authorize ifAnyGranted="ROLE_USER">
+	<c:set value="${pd_reply_unick}" var="unick"></c:set>
+		<form action="" id="re_product" name="re_product" method="post">
+			<table border = "1" cellspacing = "0" align = "center">
+				<tr>
+					<td>작성자</td>
+					<td>${unick}</td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td>
+						<textarea rows="3" cols="32" id="product_reply" name="product_reply"></textarea>
+					</td>
+				</tr>
+				<tr align="right">
+					<td>
+						<input type="button" value="등록" onclick="reply_confirm()">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</s:authorize>
 	
 	
 	

@@ -179,10 +179,14 @@ public class ProductController {
 		
 		System.out.println("product detail isCheck :: " + isCheck);
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
-		
+						
 		model.addAttribute("productDetail", dao.productDetail(pd_idx));
 		model.addAttribute("isCheck", isCheck);
 		model.addAttribute("index", index);
+
+		//------석범추가------------
+		HttpSession session = req.getSession();
+		model.addAttribute("pd_reply_unick", (String)session.getAttribute("unick"));
 		
 		return "product/productDetail";
 		
