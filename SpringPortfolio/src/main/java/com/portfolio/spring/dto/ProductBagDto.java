@@ -1,20 +1,23 @@
 package com.portfolio.spring.dto;
 
-public class Product_Bag_DTO {
+import java.sql.Timestamp;
+
+public class ProductBagDto {
+	
+	private int    pbd_idx;
 	private String pdb_uid;
 	private int    pdb_pdIdx;
-	private int    pbd_idx;
-	private String pdb_date;
+	private Timestamp pdb_date;
 	private int    pdb_count;
-	private char   pdb_state;
+	private int   pdb_state;
 	
-	public Product_Bag_DTO(String pdb_uid, int pdb_pdIdx, int pdb_idx, String pdb_date, int pdb_count, char pdb_state) {
+	public ProductBagDto(String pdb_uid, int pdb_pdIdx, int pdb_count, int pdb_state) {
+		
 		this.pdb_uid = pdb_uid;
-		this.pbd_idx = pdb_idx;
 		this.pdb_pdIdx = pdb_pdIdx;
-		this.pdb_date = pdb_date;
 		this.pdb_count = pdb_count;
 		this.pdb_state = pdb_state;
+		
 	}
 
 	public String getPdb_uid() {
@@ -41,11 +44,11 @@ public class Product_Bag_DTO {
 		this.pbd_idx = pbd_idx;
 	}
 
-	public String getPdb_date() {
+	public Timestamp getPdb_date() {
 		return pdb_date;
 	}
 
-	public void setPdb_date(String pdb_date) {
+	public void setPdb_date(Timestamp pdb_date) {
 		this.pdb_date = pdb_date;
 	}
 
@@ -57,11 +60,11 @@ public class Product_Bag_DTO {
 		this.pdb_count = pdb_count;
 	}
 
-	public char getPdb_state() {
+	public int getPdb_state() {
 		return pdb_state;
 	}
 
-	public void setPdb_state(char pdb_state) {
+	public void setPdb_state(int pdb_state) {
 		this.pdb_state = pdb_state;
 	}
 }

@@ -23,7 +23,7 @@
 		
 		<tr align = "center">
 			<td>가격</td>
-			<td>${dto.pd_charge}</td>
+			<td><script>document.write(addComma('${dto.pd_charge}'));</script>원</td>
 		</tr>
 		
 		<tr align = "center">
@@ -34,7 +34,7 @@
 		<tr align = "center">
 			<td>구매수량</td>
 			<td>
-				<input type = "number" min = 0 max = "${dto.pd_count}" name = "pd_purchase_count" id = "pd_purchase_count">
+				<input type = "number" min = 0 max = "${dto.pd_count}" name = "pd_purchase_count" id = "pd_purchase_count" value = "1">
 			</td>
 		</tr>
 		
@@ -43,7 +43,7 @@
 				<상세설명></br>
 				${dto.pd_content}
 			</td>
-		</tr align = "center">
+		</tr>
 		
 		<tr align = "center">
 			<td colspan = "2">
@@ -53,7 +53,7 @@
 		
 		<tr align = "center">
 			<td colspan = "2">
-				<input type = "button" value = "구매하기" onclick = "productPurchase('${dto.pd_idx}','${dto.pd_count}',true, '${isCheck}')">
+				<input type = "button" value = "구매하기" onclick = "productPurchase('${dto.pd_idx}','${dto.pd_count}',true, '${isCheck}', '${dto.pd_charge}','${index}')">
 				
 				<c:if test = "${empty isCheck}">
 					<input type = "button" value = "장바구니 담기" onclick = "productInputBag('${dto.pd_idx}')">

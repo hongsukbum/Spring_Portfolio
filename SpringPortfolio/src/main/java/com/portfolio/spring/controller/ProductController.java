@@ -6,7 +6,10 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -168,11 +171,14 @@ public class ProductController {
 		int pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
 		
 		String isCheck = req.getParameter("isCheck");
+		String index = req.getParameter("index");
+		
 		System.out.println("product detail isCheck :: " + isCheck);
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
 		
 		model.addAttribute("productDetail", dao.productDetail(pd_idx));
 		model.addAttribute("isCheck", isCheck);
+		model.addAttribute("index", index);
 		
 		return "product/productDetail";
 		
@@ -295,6 +301,12 @@ public class ProductController {
 		String isBag = req.getParameter("isBag");
 		System.out.println("purchase check :: isBag :: " + isBag);
 		
+		int pd_charge = Integer.parseInt(req.getParameter("pd_charge"));
+		
+		String index = req.getParameter("index");
+		
+		model.addAttribute("index", index);
+		model.addAttribute("pd_charge", pd_charge);
 		model.addAttribute("isBag", isBag);
 		model.addAttribute("pd_idx", pd_idx);
 		model.addAttribute("pd_purchase_count", pd_purchase_count);
@@ -305,7 +317,7 @@ public class ProductController {
 	
 	
 	@RequestMapping("/productPurchase")
-	public String productPurchase(HttpServletRequest req) {
+	public String productPurchase(HttpServletRequest req, Model model) {
 		
 		int pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
 		int pd_purchase_count = Integer.parseInt(req.getParameter("pd_purchase_count"));
@@ -313,8 +325,12 @@ public class ProductController {
 		String isBag = req.getParameter("isBag");
 		String result="";
 
+		String index = req.getParameter("index");
+		
 		if(isBag.equals("") == false) {
 			result = "redirect:productBag";
+			model.addAttribute("pd_idx", pd_idx);
+			model.addAttribute("index", index);
 		}else {
 			result = "redirect:product";
 		}
@@ -329,12 +345,12 @@ public class ProductController {
 		ProductDao dao = sqlSession.getMapper(ProductDao.class);
 		dao.productPurchase(pd_idx, pd_purchase_count);
 		
-		int n = dao.productPurchaseResultCount(pd_idx);
+		/*int n = dao.productPurchaseResultCount(pd_idx);
 		
-		System.out.println("남은 수량 :: " + n);
-		/*if(n <=0) {
-			dao.productDelete(pd_idx);
-		}*/
+		System.out.println("남은 수량 :: " + n);*/
+		
+		// 장바구니에서 구매를 했으면 장바구니에서 삭제.
+
 		
 		return result;
 		
@@ -375,23 +391,82 @@ public class ProductController {
 	
 	
 	@RequestMapping("/productBag")
-	public String productBag(HttpServletRequest reg, Model model) {
+	public String productBag(@RequestParam(defaultValue="1") int curPage, HttpServletRequest req, HttpServletResponse res, Model model, Principal principal) {
 		
-		HttpSession session = reg.getSession();
+		HttpSession session = req.getSession();
 		String uid = (String) session.getAttribute("uid");
+		
+		if(uid == null) {
+			uid = principal.getName();
+			
+			session.setAttribute("uid", uid);
+		}
 		
 		UserDao userDao = sqlSession.getMapper(UserDao.class);
 		String userBag = userDao.selectUserBag(uid);
 		int uidx = userDao.selectUserUidx(uid);
 		
-		System.out.println("userBag :: " + userBag);
 		
+		///////////////////////////////
+		if(req.getParameter("pd_idx") != null) {
+			RequestDispatcher dis = req.getRequestDispatcher("/productUserBagDelete");
+			try {
+				dis.forward(req, res);
+			}catch (Exception e) {
+			}
+			userBag = userDao.selectUserBag(uid);
+		}
+		
+		String[] strBag = null;
+		
+		if(userBag.equals("") == false){
+			strBag = userBag.split(",");
+		}
+		
+		/////////////////////////
+		
+		String searchStr = req.getParameter("search");
+		int listCnt = 0;
+		Paging paging = null;
+		
+		System.out.println("bag search :: " + searchStr);
+		if(searchStr == null) {
+			listCnt = strBag.length;
+		
+			System.out.println("listCnt : " + listCnt);
+			
+			paging = new Paging(listCnt, curPage);
+			
+			int startIdx = paging.getStartIndex();
+			int endIdx = paging.getPageSize();
+			
+			System.out.println("start : " + startIdx);
+			System.out.println("endIdx : " + endIdx);
+			
+			// .... 가져와
+			model.addAttribute("bagList", selectUserBagList(uidx, userBag, strBag, listCnt, startIdx, endIdx));
+			
+		}else {
+			
+		}
+		
+		//model.addAttribute("bagList", bagList);
+		
+		model.addAttribute("pageName", "/productBag");
+		model.addAttribute("paging", paging);
+		
+		return  "product/productBag";
+		
+	}
+	
+	
+	public ArrayList<ProductDto> selectUserBagList(int uidx, String userBag, String[] strBag, int listCnt, int startIdx, int endIdx){
+		
+		UserDao userDao = sqlSession.getMapper(UserDao.class);
 		ProductDao productDao = sqlSession.getMapper(ProductDao.class);
 		ArrayList<ProductDto> bagList = new ArrayList<ProductDto>();
 		
 		if(userBag.equals("") == false){
-			System.out.println("------------");
-			String[] strBag = userBag.split(",");
 			
 			ProductDto dto = new ProductDto();
 			
@@ -408,29 +483,39 @@ public class ProductController {
 			strBag = userBag.split(",");
 			userDao.updateInputBag(uidx, userBag);
 			
-			for(int i = 0;i<strBag.length;i++) {
+			endIdx = startIdx + endIdx;
+			if(endIdx > listCnt) {
+				endIdx = listCnt;
+			}
+			
+			for(int i = startIdx;i<endIdx;i++) {
 				dto = productDao.productDetail(Integer.parseInt(strBag[i]));
 				if(dto != null)
 					bagList.add(dto);
 			}
 		}
 		
-		model.addAttribute("bagList", bagList);
-		
-		return  "product/productBag";
+		return bagList;
 		
 	}
 	
 	
 	@RequestMapping("/productUserBagDelete")
-	public String productUserBagDelete(HttpServletRequest req) {
+	public String productUserBagDelete(HttpServletRequest req, Principal principal) {
 		
+		System.out.println("delete index : " + req.getParameter("index") + " / pd_idx  : " + req.getParameter("pd_idx"));
 		int index = Integer.parseInt(req.getParameter("index"));
 		int pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
 		String tmpIdx = "";
 		
 		HttpSession session = req.getSession();
 		String uid = (String) session.getAttribute("uid");
+		
+		if(uid == null) {
+			uid = principal.getName();
+			
+			session.setAttribute("uid", uid);
+		}
 		
 		UserDao userDao = sqlSession.getMapper(UserDao.class);
 		int uidx = userDao.selectUserUidx(uid);

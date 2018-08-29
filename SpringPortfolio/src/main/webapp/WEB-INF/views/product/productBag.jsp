@@ -16,26 +16,34 @@
 	
 	<table border = "1" cellspacing = "0" align = "center">
 		<tr>
-			<td>상품 이름</td><td>상품 설명</td><td>장바구니 삭제</td>
+			<td>상품 이름</td><td>상품 설명</td><td>상품수량</td><td>금액</td><td>구매</td><td>장바구니 삭제</td>
 		</tr>
 		
 		<c:forEach items = "${bagList}" var = "bag" varStatus = "status">
-			<tr onclick = "productDetail('${bag.pd_idx}',true)">	
-				<td>${status.index} : ${bag.pd_name}</td><td>${bag.pd_title}</td>
+			<tr>	
+				<td onclick = "productDetail('${bag.pd_idx}',true, '${status.index}')">${bag.pd_name}</td>
+				<td onclick = "productDetail('${bag.pd_idx}',true, '${status.index}')">${bag.pd_title}</td>
+				<td>
+					<input type = "number" min = 0 max = '${bag.pd_count}' name = "pd_purchase_count" id = "pd_purchase_count" value = 0>
+				</td>
+				<td>
+					<script>document.write(addComma('${bag.pd_charge}'));</script>원
+				</td>
+				<td>
+					<input type = "button" value = "구매하기" onclick = "productPurchase('${bag.pd_idx}', '${bag.pd_count}', true, '${status.index}', '${bag.pd_charge}','${status.index}')">
+				</td>
 				<td>
 					<input type = "button" value ="장바구니 삭제" onclick = "productUserBagDelete('${status.index}','${bag.pd_idx}')">
 				</td>
 			</tr>
 		</c:forEach>
 		
-		<tr align = "center">
-			<td colspan = "3">
-				<input type = "button" value = "홈으로" onclick = "pageMain()">
-			</td>
-		</tr>
-		
 	</table>
-	
+
+<jsp:include page= "../common/pagingBottom.jsp" flush="false">
+	<jsp:param name="paging" value="${paging}"/>
+	<jsp:param name= "pageName" value = "${pageName}"/>
+</jsp:include>	
 	
 	
 </body>

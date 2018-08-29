@@ -47,3 +47,10 @@ function noneBack(){
 	};
 	
 }
+
+
+// 돈 콤마 표시.
+function addComma(x){
+	return Number(x).toLocaleString('en');
+}
+

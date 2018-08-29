@@ -233,7 +233,7 @@ function productUserBagDelete(index, pd_idx){
 }
 
 
-function productDetail(pd_idx, isCheck){
+function productDetail(pd_idx, isCheck, index){
 
 	if(isDelete == true) return;
 	if(isModify == true) return;
@@ -254,11 +254,17 @@ function productDetail(pd_idx, isCheck){
 	
 	if(isCheck == true){
 		
-		var hiddenField = document.createElement("input");
-		hiddenField.setAttribute("type", "hidden");
-		hiddenField.setAttribute("name", "isCheck");
-		hiddenField.setAttribute("value", isCheck);
-		form.appendChild(hiddenField);
+		var hiddenField2 = document.createElement("input");
+		hiddenField2.setAttribute("type", "hidden");
+		hiddenField2.setAttribute("name", "isCheck");
+		hiddenField2.setAttribute("value", isCheck);
+		form.appendChild(hiddenField2);
+	
+		var hiddenField3 = document.createElement("input");
+		hiddenField3.setAttribute("type", "hidden");
+		hiddenField3.setAttribute("name", "index");
+		hiddenField3.setAttribute("value", index);
+		form.appendChild(hiddenField3);
 		
 	}
 	
@@ -270,19 +276,23 @@ function productDetail(pd_idx, isCheck){
 }
 
 
-function productPurchase(pd_idx, pd_count, isCheck, isBag){
+function productPurchase(pd_idx, pd_count, isCheck, isBag, pd_charge, index){
 	
 	var pd_purchase_count = 0;
 	
 	if(isCheck == true){
 		pd_purchase_count = document.getElementById("pd_purchase_count").value; 
 		
+		if(isBag != "true" && isBag != ""){
+			pd_purchase_count = document.getElementsByName("pd_purchase_count")[isBag].value;
+		}
+
 		if(pd_count == 0){
 			alert("구매 불가능한 상품입니다.");
 			return;
 		}
 		
-		if(pd_purchase_count == "" || pd_purchase_count > pd_count || pd_purchase_count <0){
+		if(pd_purchase_count == "" || parseInt(pd_purchase_count) > parseInt(pd_count) || parseInt(pd_purchase_count) <= 0){
 			alert("구매 수량을 확인해주세요.");
 			return;
 		}
@@ -327,6 +337,18 @@ function productPurchase(pd_idx, pd_count, isCheck, isBag){
 	hiddenField3.setAttribute("name", "isBag");
 	hiddenField3.setAttribute("value", isBag);
 	form.appendChild(hiddenField3);
+	
+	var hiddenField4 = document.createElement("input");
+	hiddenField4.setAttribute("type", "hidden");
+	hiddenField4.setAttribute("name", "pd_charge");
+	hiddenField4.setAttribute("value", pd_charge);
+	form.appendChild(hiddenField4);
+	
+	var hiddenField5 = document.createElement("input");
+	hiddenField5.setAttribute("type", "hidden");
+	hiddenField5.setAttribute("name", "index");
+	hiddenField5.setAttribute("value", index);
+	form.appendChild(hiddenField5);
 	
 	document.body.appendChild(form);
 	

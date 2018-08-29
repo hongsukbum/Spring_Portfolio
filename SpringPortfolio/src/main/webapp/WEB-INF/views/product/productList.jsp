@@ -40,7 +40,7 @@
 		</tr>
 		
 		<c:forEach items = "${productList}" var = "dto">
-			<tr onclick = "productDetail('${dto.pd_idx}', false)">
+			<tr onclick = "productDetail('${dto.pd_idx}', false, '')">
 				<td>${dto.pd_name}</td><td>${dto.pd_title}</td>
 				<s:authorize ifAnyGranted = "ROLE_ADMIN">
 					<td>
