@@ -9,19 +9,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/qnaCommon.js"></script>
 	<h2 align = "center">고객센터 글쓰기</h2>	
-	<form action ="" id="qnaWrite" name="qnaWrite" method="post">	
+	<form action ="" id="qnaWrite" name="qnaWrite" method="post">
 		<table align ="center" border="1" cellspacing ="0">
 			<tr>
-				<td>분류</td>
+				<td>카테고리</td>
 				<td>
-					<select id="qna_cate" name="qna_cate">
-						<option value="product">상품</option>
-						<option value="delevery">배송</option>
-						<option value="other">기타</option>
+					<select id="select_cate" name="select_cate">
+						<c:forEach items="${qna_qnac}" var = "qna_qnac">
+							<option value="${qna_qnac.qnac_idx}">${qna_qnac.qnac_name}</option>
+						</c:forEach>
 					</select>
-		
 				<td>제목</td>
 				<td>
 					<input type="text" name="qna_title" id="qna_title" value = "${qna_title}">

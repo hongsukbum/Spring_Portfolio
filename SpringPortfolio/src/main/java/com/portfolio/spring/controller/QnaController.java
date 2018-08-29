@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.portfolio.spring.dao.AdminBoardDao;
+import com.portfolio.spring.dao.QnaCateDao;
 import com.portfolio.spring.dao.QnaDao;
 import com.portfolio.spring.dto.AdminBoardDto;
+import com.portfolio.spring.dto.QnaCateDto;
 import com.portfolio.spring.dto.QnaDto;
 
 @Controller
@@ -30,10 +32,13 @@ public class QnaController {
 	@RequestMapping("/qnalist")
 	public String qnaList(Model model, HttpServletRequest req) {
 		
-		//권한얻어오기
+		//권한얻어오기---------------------------
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		Collection<? extends GrantedAuthority> role = auth.getAuthorities();
+		//-----------------------------------
+		
+		//int qna_qnac_idx = 0;
 		
 		HttpSession session = req.getSession();
 		
@@ -41,15 +46,22 @@ public class QnaController {
 		
 		QnaDao dao = sqlSession.getMapper(QnaDao.class);
 		
-		System.out.println(role.toString());
+		//System.out.println(role.toString());
+		
+		//QnaCateDao c_dao = sqlSession.getMapper(QnaCateDao.class);	
+		
+		//c_dao.getAllQnacate();
+		QnaCateDao c_dao = sqlSession.getMapper(QnaCateDao.class);
 		
 		if(role.toString().equals("[ROLE_ADMIN]")) {
-			model.addAttribute("viewQnalist",dao.adminViewQnalist());
+			model.addAttribute("viewQnalist",dao.adminViewQnalist());	
+			model.addAttribute("qna_qnac", c_dao.getAllQnacate());
 		}
 		else if(role.toString().equals("[ROLE_USER]")) {
 			model.addAttribute("viewQnalist",dao.viewQnalist(unick));			
 		}
 		else {
+			return "/";
 		}
 		
 		return "/qna/qnaList";
@@ -73,25 +85,32 @@ public class QnaController {
 		return "/qna/qnaView";
 	}
 	
+	
 	@RequestMapping("/qnaWrite")
 	public String qnaWrite(HttpServletRequest req, Model model) {
+			
+		int qna_idx=0;
+		int qna_qnac_idx = 0;
 		
-		System.out.println("qna_write()");
-		
-		int qna_idx = 0;
 		
 		String strQnaIdx = req.getParameter("qna_idx");
+		
+		QnaCateDao dao = sqlSession.getMapper(QnaCateDao.class);
+		model.addAttribute("qna_qnac", dao.getAllQnacate());
 		
 		if(strQnaIdx != null) {
 			qna_idx = Integer.parseInt(strQnaIdx);
 			model.addAttribute("qna_idx", qna_idx);
+			qna_qnac_idx = Integer.parseInt(req.getParameter("qna_qnac_idx"));
 		}
 		
 		String qna_title = req.getParameter("qna_title");
 		String qna_content = req.getParameter("qna_content");
 		
+		
 		model.addAttribute("qna_title", qna_title);
 		model.addAttribute("qna_content", qna_content);
+		model.addAttribute("qna_qnac_idx", qna_qnac_idx);
 		
 		
 		return "/qna/qnaWrite";
@@ -106,9 +125,11 @@ public class QnaController {
 		
 		System.out.println(" qna write confirm title :: " + qna_title + " / content :: " + qna_content);
 		
+		int qna_qnac_idx = Integer.parseInt(req.getParameter("qnac_idx"));
+		
 		HttpSession session = req.getSession();
 		String qna_unick = (String) session.getAttribute("unick");
-		int qna_qnac_idx = 0;
+		
 		int qna_pd_idx = 0;
 		int qna_state = 0;
 		
@@ -129,11 +150,11 @@ public class QnaController {
 		
 		String qna_title = req.getParameter("qna_title");
 		String qna_content = req.getParameter("qna_content");
+		int qna_qnac_idx = Integer.parseInt(req.getParameter("qnac_idx"));
 		
 		HttpSession session = req.getSession();
 		
 		String qna_unick = (String) session.getAttribute("unick");
-		int qna_qnac_idx = 0;
 		int qna_pd_idx = 0;
 		int qna_state = 0;
 				

@@ -16,6 +16,19 @@
 		<!--<c:set var = "reply" value="${viewReply}"></c:set> -->
 		
 		<tr>
+			<td>카테고리</td>
+			<c:if test="${dto.qna_qnac_idx == 1 }">
+				<td>상품</td>
+			</c:if>
+			<c:if test="${dto.qna_qnac_idx == 2 }">
+				<td>배송</td>
+			</c:if>
+			<c:if test="${dto.qna_qnac_idx == 3 }">
+				<td>기타</td>
+			</c:if>			
+		</tr>
+		
+		<tr>
 			<td>제목</td>
 			<td>${dto.qna_title}</td>
 		</tr>
@@ -24,8 +37,7 @@
 			<td>내용</td>
 			<td>${dto.qna_content}</td>
 		</tr>
-		
-		
+				
 		
 		<c:forEach items="${viewReply}" var="reply">
 			<c:if test="${!empty reply}">
@@ -40,7 +52,7 @@
 				<input type = "button" value="목록" onclick="move_qna_list()">
 				
 				<s:authorize ifAnyGranted="ROLE_USER">
-					<input type = "button" value="수정" onclick="qna_modify('${dto.qna_title}','${dto.qna_content}','${dto.qna_idx}')">
+					<input type = "button" value="수정" onclick="qna_modify('${dto.qna_title}','${dto.qna_content}','${dto.qna_idx}','${dto.qna_qnac_idx}')">
 				</s:authorize>
 				<input type = "button" value="삭제" onclick="qna_remove('${dto.qna_idx}')">
 				 

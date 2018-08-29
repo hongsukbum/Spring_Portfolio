@@ -5,9 +5,6 @@
 <fullyQualifiedTypeName name="com.portfolio.spring.Dao.UserInfoDao"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.Dto.UserInfoDto"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.Dao.UserDao"/>
-<fullyQualifiedTypeName name="java.sql.Timestamp"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
-<fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 <fullyQualifiedTypeName name="org.springframework.web.servlet.mvc.support.RedirectAttributes"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
@@ -22,7 +19,6 @@
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.ProductCateDto"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.ProductCateDao"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
-<fullyQualifiedTypeName name="org.springframework.ui.Model"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.QnaDao"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.QnaDTO"/>
 <fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
@@ -30,14 +26,22 @@
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.UserInfoDto"/>
 <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
 <fullyQualifiedTypeName name="javax.servlet.ServletRequest"/>
+<fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
+<fullyQualifiedTypeName name="java.security.Principal"/>
+<fullyQualifiedTypeName name="javax.servlet.RequestDispatcher"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.UserDao"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="java.sql.Timestamp"/>
+<fullyQualifiedTypeName name="org.springframework.ui.Model"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.ProductDao"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.ProductDto"/>
+<fullyQualifiedTypeName name="com.portfolio.spring.dto.ProductPurchaseBagDto"/>
+<fullyQualifiedTypeName name="com.portfolio.spring.dao.PurchaseStatusDao"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.portfolio.spring.dto.PurchaseStatus"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletResponse"/>
+<fullyQualifiedTypeName name="com.portfolio.spring.dao.ProductPurchaseBagDao"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
-<fullyQualifiedTypeName name="java.security.Principal"/>
-<fullyQualifiedTypeName name="org.springframework.security.core.context.SecurityContextHolder"/>
 </qualifiedTypeNameHistroy>

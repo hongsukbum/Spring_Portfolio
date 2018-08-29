@@ -12,6 +12,11 @@ function qna_write_confirm(){
 	
 	var form = document.qnaWrite;
 	
+	if(form.select_cate.value.trim()== "0"){
+		alert("카테고리를 선택하세요.");
+		return;
+	}
+	
 	if(form.qna_title.value.trim() == ""){
 		alert("제목을 작성해 주세요.");
 		return;
@@ -56,7 +61,7 @@ function qna_view(qna_idx){
 	form.submit();
 }
 
-function qna_modify(qna_title,qna_content, qna_idx){
+function qna_modify(qna_title,qna_content, qna_idx,qna_qnac_idx){
 
 	var url = "/qnaWrite";
 	var form = document.createElement("form");
@@ -85,6 +90,13 @@ function qna_modify(qna_title,qna_content, qna_idx){
 	hiddenField3.setAttribute("value",qna_idx);
 	
 	form.appendChild(hiddenField3);
+	
+	var hiddenField4 = document.createElement("input");
+	hiddenField4.setAttribute("type","hidden");
+	hiddenField4.setAttribute("name","qna_qnac_idx");
+	hiddenField4.setAttribute("value",qna_qnac_idx);
+	
+	form.appendChild(hiddenField4);
 	
 	document.body.appendChild(form);
 	

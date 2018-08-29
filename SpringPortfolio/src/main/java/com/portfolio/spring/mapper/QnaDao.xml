@@ -18,7 +18,7 @@
 	</select>
 	
 	<update id="updateQna" parameterType="com.portfolio.spring.dto.QnaDto">
-		UPDATE QNABOARD SET QNA_TITLE = #{qna_title}, QNA_CONTENT = #{qna_content} WHERE QNA_IDX = #{qna_idx}
+		UPDATE QNABOARD SET QNA_TITLE = #{qna_title}, QNA_QNAC_IDX = #{qna_qnac_idx}, QNA_CONTENT = #{qna_content} WHERE QNA_IDX = #{qna_idx}
 	</update>
 	
 	<update id="updateState" parameterType="com.portfolio.spring.dto.QnaDto">
