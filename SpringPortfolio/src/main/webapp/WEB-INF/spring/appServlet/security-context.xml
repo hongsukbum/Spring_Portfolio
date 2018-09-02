@@ -11,7 +11,8 @@
 			default-target-url = "/loginok"
 			authentication-failure-url="/login?ng"/>
 		
-		<security:logout logout-success-url = "/logout" invalidate-session = "true"/>
+		<security:logout logout-success-url = "/logout" invalidate-session = "false"/>
+		<!--  invalidate-session = "true" -->
 		
 		<!-- 아무나 다 사용가능. -->
 		<security:intercept-url pattern="/" access="permitAll"/>

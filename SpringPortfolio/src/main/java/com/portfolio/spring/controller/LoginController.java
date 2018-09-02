@@ -44,10 +44,14 @@ public class LoginController {
 	
 	
 	@RequestMapping("/logout")
-	public String logout() {
+	public String logout(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		session.removeAttribute("uid");
+		session.removeAttribute("unick");
 		
 		return "redirect:/";
-		
 	}
 	
 	
