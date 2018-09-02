@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="countDay" resultType="com.portfolio.spring.dto.VisitorBackDto">
-		SELECT * FROM VISITOR_BACK
+		SELECT * FROM VISITOR_BACK ORDER BY IDX DESC LIMIT 7
 	</select>
 
 </mapper>
