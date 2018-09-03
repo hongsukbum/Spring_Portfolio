@@ -40,19 +40,12 @@ public class QnaController {
 		Collection<? extends GrantedAuthority> role = auth.getAuthorities();
 		//-----------------------------------
 		
-		//int qna_qnac_idx = 0;
-		
 		HttpSession session = req.getSession();
 		
 		String unick = (String)session.getAttribute("unick");
 		
 		QnaDao dao = sqlSession.getMapper(QnaDao.class);
 		
-		//System.out.println(role.toString());
-		
-		//QnaCateDao c_dao = sqlSession.getMapper(QnaCateDao.class);	
-		
-		//c_dao.getAllQnacate();
 		QnaCateDao c_dao = sqlSession.getMapper(QnaCateDao.class);
 		
 		if(role.toString().equals("[ROLE_ADMIN]")) {
@@ -230,12 +223,14 @@ public class QnaController {
 		QnaDto dto = new QnaDto();
 		QnaDao dao = sqlSession.getMapper(QnaDao.class);
 		
+		String qna_title = qna_pd_idx + "번 상품에 대한 댓글입니다.";
+		
 		dto.setQna_unick(qna_unick);
 		dto.setQna_pd_idx(qna_pd_idx);
 		dto.setQna_qnac_idx(4);
 		dto.setQna_content(qna_content);
 		dto.setQna_state(0);
-		dto.setQna_title("none_title");
+		dto.setQna_title(qna_title);
 		
 		dao.insertQna(dto);
 		
@@ -246,6 +241,5 @@ public class QnaController {
 		}
 		
 		return null;
-		//return "redirect:/productDetail";
 	}
 }

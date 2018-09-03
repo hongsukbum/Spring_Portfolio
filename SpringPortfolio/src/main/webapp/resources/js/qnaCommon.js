@@ -206,6 +206,8 @@ function admin_replyWriteConfirm(qna_idx){
 }
 function reply_confirm(pd_idx){
 	
+	alert("댓글등록");
+	
 	var form = document.userReply;
 	
 	var url = "/userReply";

@@ -13,6 +13,7 @@
 <body>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/common.js"></script>
 <script type = "text/javascript" charset = "UTF-8" src = "/resources/js/product.js"></script>
+<script type = "text/javascript" charset = "UTF-8" src = "/resources/js/qnaCommon.js"></script>
 
 	<c:set var = "dto" value = "${productDetail}"/>
 	
