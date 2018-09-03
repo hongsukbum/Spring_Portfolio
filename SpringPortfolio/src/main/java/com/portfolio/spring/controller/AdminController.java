@@ -73,7 +73,7 @@ public class AdminController {
 		
 		UserDao dao = sqlSession.getMapper(UserDao.class);
 		
-		userInfoDto.setUauthorityidx(0);
+		userInfoDto.setUauthorityIdx(0);
 		
 		dao.accountAdmin(userInfoDto);
 		
