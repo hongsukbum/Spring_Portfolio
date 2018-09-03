@@ -1,13 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.io.File"/>
-<fullyQualifiedTypeName name="java.lang.IllegalStateException"/>
-<fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
-<fullyQualifiedTypeName name="com.portfolio.spring.util.Paging"/>
-<fullyQualifiedTypeName name="com.portfolio.spring.dto.ProductCateDto"/>
-<fullyQualifiedTypeName name="com.portfolio.spring.dao.ProductCateDao"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.QnaDao"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.QnaDTO"/>
 <fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
@@ -28,12 +20,9 @@
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.ProductPurchaseBagDao"/>
 <fullyQualifiedTypeName name="java.lang.Integer"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.QnaCateDto"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.QnaCateDao"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="org.springframework.scheduling.quartz.QuartzJobBean"/>
-<fullyQualifiedTypeName name="org.springframework.scheduling.annotation.Scheduled"/>
-<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.util.TestClass"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.util.DEFINE.TEST"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.util.DEFINE.STATISTICS_STATE"/>
@@ -59,5 +48,16 @@
 <fullyQualifiedTypeName name="javax.servlet.http.HttpSession"/>
 <fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dto.VisitorDto"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Component"/>
+<fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
 <fullyQualifiedTypeName name="com.portfolio.spring.dao.VisitorDao"/>
+<fullyQualifiedTypeName name="org.springframework.scheduling.annotation.Scheduled"/>
+<fullyQualifiedTypeName name="org.springframework.jdbc.datasource.DataSourceTransactionManager"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="javax.xml.crypto.Data"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="java.util.Calendar"/>
+<fullyQualifiedTypeName name="com.portfolio.spring.dao.VisitorBackDao"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.portfolio.spring.dto.VisitorBackDto"/>
 </qualifiedTypeNameHistroy>
