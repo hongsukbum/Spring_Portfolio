@@ -19,7 +19,7 @@
 				<td>
 					<select id="select_cate" name="select_cate">
 						<c:forEach items="${qna_qnac}" var = "qna_qnac">
-							<option value="${qna_qnac.qnac_idx}">${qna_qnac.qnac_name}</option>
+							<option value="${qna_qnac.qnac_idx}">${qna_qnac.qnac_name}</option>	
 						</c:forEach>
 					</select>
 				<td>제목</td>

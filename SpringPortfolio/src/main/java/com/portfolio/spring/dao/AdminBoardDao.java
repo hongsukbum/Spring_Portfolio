@@ -6,5 +6,5 @@ import com.portfolio.spring.dto.AdminBoardDto;
 
 public interface AdminBoardDao {
 	public void insert_abReply(AdminBoardDto dto);
-	public ArrayList<String> viewReply(int qna_idx);
+	public ArrayList<AdminBoardDao> viewReply(int qna_idx);
 }

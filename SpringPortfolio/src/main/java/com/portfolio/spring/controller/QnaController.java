@@ -44,6 +44,8 @@ public class QnaController {
 		
 		String unick = (String)session.getAttribute("unick");
 		
+		//String uid = 
+		
 		QnaDao dao = sqlSession.getMapper(QnaDao.class);
 		
 		QnaCateDao c_dao = sqlSession.getMapper(QnaCateDao.class);
@@ -53,7 +55,8 @@ public class QnaController {
 			model.addAttribute("qna_qnac", c_dao.getAllQnacate());
 		}
 		else if(role.toString().equals("[ROLE_USER]")) {
-			model.addAttribute("viewQnalist",dao.viewQnalist(unick));			
+			model.addAttribute("viewQnalist",dao.viewQnalist(unick));
+			//model.addAttribute("viewQnalist",dao.viewQnalist(uid));
 		}
 		else {
 			return "/";
@@ -120,7 +123,7 @@ public class QnaController {
 		
 		System.out.println(" qna write confirm title :: " + qna_title + " / content :: " + qna_content);
 		
-		int qna_qnac_idx = Integer.parseInt(req.getParameter("qnac_idx"));
+		int qna_qnac_idx = Integer.parseInt(req.getParameter("select_cate"));
 		
 		HttpSession session = req.getSession();
 		String qna_unick = (String) session.getAttribute("unick");
@@ -145,7 +148,7 @@ public class QnaController {
 		
 		String qna_title = req.getParameter("qna_title");
 		String qna_content = req.getParameter("qna_content");
-		int qna_qnac_idx = Integer.parseInt(req.getParameter("qnac_idx"));
+		int qna_qnac_idx = Integer.parseInt(req.getParameter("select_cate"));
 		
 		HttpSession session = req.getSession();
 		

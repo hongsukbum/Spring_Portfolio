@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="viewReply" resultType="java.lang.String">
-		SELECT AB_CONTENT FROM ADMINBOARD WHERE AB_QNA_IDX = #{param1}
+		SELECT * FROM ADMINBOARD WHERE AB_QNA_IDX = #{param1}
 	</select>
 	
 </mapper>

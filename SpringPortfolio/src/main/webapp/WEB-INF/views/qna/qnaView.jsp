@@ -43,7 +43,10 @@
 			<c:if test="${!empty reply}">
 				<tr>
 					<td>답변</td>
-					<td>${reply}</td>
+					<td>${reply.ab_content}</td>
+					<td>
+						<input type = "button" value = "답변수정" onclick="admin_replyModify(${reply.ab_idx})">
+					</td>
 				</tr>
 			</c:if>
 		</c:forEach>

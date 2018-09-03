@@ -8,7 +8,7 @@ function move_qna_list(){
 }
 
 function qna_write_confirm(){
-	//alert("qna_write_confirm()");
+	alert("qna_write_confirm()");
 	
 	var form = document.qnaWrite;
 	
@@ -31,6 +31,7 @@ function qna_write_confirm(){
 	
 	form.action = url;
 	form.method = "post";
+	form.charset = "UTF-8";
 	
 	form.submit();
 }
@@ -204,6 +205,33 @@ function admin_replyWriteConfirm(qna_idx){
 	//form을 지정된 경로로 전송
 	form.submit();
 }
+
+function admin_replyModify(ab_idx){
+	
+	//replay form 받아오기
+	var form = document.createElement("form");
+	
+	//action 경로 설정
+	var url = "/admin_replyModify";
+	
+	form.action = url;
+	
+	//form에 담에 보낼 요소 추가
+	var hiddenField = document.createElement("input");
+	
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","ab_idx");
+	hiddenField.setAttribute("value",ab_idx);
+	
+	//요소를 form에 담아주기
+	form.appendChild(hiddenField);
+	form.appendChild(hiddenField2);
+	
+	//form을 지정된 경로로 전송
+	form.submit();
+	
+}
+
 function reply_confirm(pd_idx){
 	
 	alert("댓글등록");
@@ -277,5 +305,5 @@ function userban(uidx){
 
 function userlist(){
 	
-	location.href = "redirect:/adminUserInfoList";
+	location.href = "/adminUserInfoList";
 }
