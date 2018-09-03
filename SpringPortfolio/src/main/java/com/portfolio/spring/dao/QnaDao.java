@@ -12,4 +12,6 @@ public interface QnaDao {
 	public void removeQna(int qna_idx);
 	public ArrayList<QnaDto> adminViewQnalist();
 	public void updateState(int qna_idx, int qna_state);
+	public void insertUserReply(QnaDto dto);
+	public ArrayList<QnaDto> viewReply(int qnac_idx,int qna_pd_idx);
 }

@@ -23,10 +23,42 @@ public class AdminController {
 	
 	@RequestMapping("/adminUserInfoList")
 	public String adminUserInfoList(HttpServletRequest req, Model model) {
+		
+		//유저목록 보기 석범
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		model.addAttribute("userlist", dao.userlist());
 
 		return "admin/adminUserInfoList";
 		
 	}
+	
+	//석범 추가
+	@RequestMapping("/userDetail")
+	public String userDetail(HttpServletRequest req, Model model) {
+		
+		int uidx = Integer.parseInt(req.getParameter("uidx"));
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		model.addAttribute("detailInfo", dao.userDetail(uidx));
+		
+		
+		return "admin/userDetail";
+	}
+	
+	@RequestMapping("/userBan")
+	public String userBan(HttpServletRequest req, Model model) {
+		
+		int uidx = Integer.parseInt(req.getParameter("uidx"));
+		
+		UserDao dao = sqlSession.getMapper(UserDao.class);
+		
+		dao.userBan(uidx);
+		
+		return "redirect:adminUserInfoList";
+	}
+	//
 	
 	@RequestMapping("/adminAddAccount")
 	public String adminAddPage(HttpServletRequest req, Model model) {

@@ -1,5 +1,7 @@
 package com.portfolio.spring.dao;
 
+import java.util.ArrayList;
+
 import com.portfolio.spring.dto.UserInfoDto;
 
 public interface UserDao {
@@ -21,5 +23,10 @@ public interface UserDao {
 	public int selectUserUidx(String uid);
 	public String selectUserBag(String uid);
 	public void updateInputBag(int uidx, String pd_idx);
+	
+	//석범 추가
+		public ArrayList<UserInfoDto> userlist();
+		public UserInfoDto userDetail(int uidx);
+		public void userBan(int uidx);
 	
 }

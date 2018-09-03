@@ -2,7 +2,9 @@ package com.portfolio.spring.controller;
 
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -212,5 +214,38 @@ public class QnaController {
 		q_dao.updateState( qna_idx, qna_state);
 		
 		return "redirect:/qnalist";
+	}
+	
+	@RequestMapping("/userReply")
+	public String userReply(HttpServletRequest req, HttpServletResponse res) {
+		
+		System.out.println("유저댓글");
+		
+		String qna_content = req.getParameter("product_reply");
+		int qna_pd_idx = Integer.parseInt(req.getParameter("pd_idx"));
+		
+		HttpSession session = req.getSession();
+		String qna_unick = (String) session.getAttribute("unick");
+		
+		QnaDto dto = new QnaDto();
+		QnaDao dao = sqlSession.getMapper(QnaDao.class);
+		
+		dto.setQna_unick(qna_unick);
+		dto.setQna_pd_idx(qna_pd_idx);
+		dto.setQna_qnac_idx(4);
+		dto.setQna_content(qna_content);
+		dto.setQna_state(0);
+		dto.setQna_title("none_title");
+		
+		dao.insertQna(dto);
+		
+		RequestDispatcher dis = req.getRequestDispatcher("/productDetail");
+		try {
+			dis.forward(req, res);
+		}catch (Exception e) {
+		}
+		
+		return null;
+		//return "redirect:/productDetail";
 	}
 }

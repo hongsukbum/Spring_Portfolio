@@ -72,9 +72,10 @@
 	</table>
 	
 	<%-- 석범 추가 --%>
+	<%-- 석범 추가 --%>
 	<s:authorize ifAnyGranted="ROLE_USER">
 	<c:set value="${pd_reply_unick}" var="unick"></c:set>
-		<form action="" id="re_product" name="re_product" method="post">
+		<form action="" method="post" id = "userReply" name="userReply">
 			<table border = "1" cellspacing = "0" align = "center">
 				<tr>
 					<td>작성자</td>
@@ -88,7 +89,7 @@
 				</tr>
 				<tr align="right">
 					<td>
-						<input type="button" value="등록" onclick="reply_confirm()">
+						<input type="button" value="등록" onclick="reply_confirm('${dto.pd_idx}')">
 					</td>
 				</tr>
 			</table>
@@ -96,6 +97,24 @@
 	</s:authorize>
 	
 	
-	
+	<table align = "center" border="1" cellspacing="0">		
+		
+		<c:if test = "${not empty viewReplylist}">
+			<tr align="center">
+				<td>작성자</td>
+				<td>작성일</td>
+				<td>내용</td>
+			</tr>
+		</c:if>	
+		
+		<c:forEach items="${viewReplylist}" var="view">		
+			<tr align="center">
+				<td>${view.qna_unick}</td>
+				<td>${view.qna_date}</td>
+				<td>${view.qna_content}</td>
+			</tr>
+		</c:forEach>
+	</table>
+		
 </body>
 </html>

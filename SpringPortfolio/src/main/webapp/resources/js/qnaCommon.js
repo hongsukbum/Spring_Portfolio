@@ -204,3 +204,76 @@ function admin_replyWriteConfirm(qna_idx){
 	//form을 지정된 경로로 전송
 	form.submit();
 }
+function reply_confirm(pd_idx){
+	
+	var form = document.userReply;
+	
+	var url = "/userReply";
+	
+	form.setAttribute("action",url);
+	form.setAttribute("method","post");
+	form.setAttribute("charset","UTF-8");
+	
+	var hiddenField = document.createElement("input");
+	
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","pd_idx");
+	hiddenField.setAttribute("value",pd_idx);
+	
+	if(form.product_reply.value.trim()==""){
+		alert("내용을 입력해 주세요.");
+		return;
+	}
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+function user_detail(uidx){
+	
+	var form = document.createElement("form");
+	var url = "/userDetail";
+	
+	form.setAttribute("action",url);
+	form.setAttribute("method","post");
+	form.setAttribute("charset","UTF-8");
+	
+	var hiddenField = document.createElement("input");
+	
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","uidx");
+	hiddenField.setAttribute("value",uidx);
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+function userban(uidx){
+	
+	var form = document.createElement("form");
+	var url = "/userBan";
+	
+	form.setAttribute("action",url);
+	form.setAttribute("method","post");
+	form.setAttribute("charset","UTF-8");
+	
+	var hiddenField = document.createElement("input");
+	
+	hiddenField.setAttribute("type","hidden");
+	hiddenField.setAttribute("name","uidx");
+	hiddenField.setAttribute("value",uidx);
+	
+	form.appendChild(hiddenField);
+	document.body.appendChild(form);
+	
+	form.submit();
+}
+
+function userlist(){
+	
+	location.href = "redirect:/adminUserInfoList";
+}

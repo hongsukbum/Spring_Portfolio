@@ -27,6 +27,7 @@ import com.portfolio.spring.dao.ProductCateDao;
 import com.portfolio.spring.dao.ProductDao;
 import com.portfolio.spring.dao.ProductPurchaseBagDao;
 import com.portfolio.spring.dao.PurchaseStatusDao;
+import com.portfolio.spring.dao.QnaDao;
 import com.portfolio.spring.dao.UserDao;
 import com.portfolio.spring.dto.ProductDto;
 import com.portfolio.spring.dto.ProductPurchaseBagDto;
@@ -185,8 +186,13 @@ public class ProductController {
 		model.addAttribute("index", index);
 
 		//------석범추가------------
+		System.out.println("디테일");
+		
 		HttpSession session = req.getSession();
 		model.addAttribute("pd_reply_unick", (String)session.getAttribute("unick"));
+		
+		QnaDao q_dao = sqlSession.getMapper(QnaDao.class);
+		model.addAttribute("viewReplylist", q_dao.viewReply(4,pd_idx));	
 		
 		return "product/productDetail";
 		
